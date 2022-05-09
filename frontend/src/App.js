@@ -7,11 +7,12 @@ import AdminSignIn from './components/AdminManagement/AdminLogin';
 function App() {
   return (
     <div className="App">
+      
       <Router>
         <div>
             <Header/>
             
-            <Route path="/admin/signin" exact component={AdminSignIn} />
+            <Route path="hotel/admin/signin" exact component={AdminSignIn} />
             
         </div>
       </Router>
