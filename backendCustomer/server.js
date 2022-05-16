@@ -38,23 +38,23 @@ connection.once("open", function() {
 }); 
 
 
-//when http://localhost:8070/admin ran it will execute adminrouter.js file
+//when http://localhost:8090/admin ran it will execute adminrouter.js file
 //app.use("/admin",AdminRouter);
-//when http://localhost:8070/student ran it will execute StudentRouter.js file
+//when http://localhost:8090/student ran it will execute StudentRouter.js file
 //  app.use("/student",StudentRouter);
-//  //when http://localhost:8070/student ran it will execute StudentRouter.js file
+//  //when http://localhost:8090/student ran it will execute StudentRouter.js file
 //  app.use("/progress",ProgressRouter);
-// //when http://localhost:8070/supervisor ran it will execute supervisorrouter.js file
+// //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",SupervisorRouter);
-// //when http://localhost:8070/panelmember ran it will execute panelmemberrouter.js file
+// //when http://localhost:8090/panelmember ran it will execute panelmemberrouter.js file
 // app.use("/panelmember",PanelmemberRouter);
-// //when http://localhost:8070/supervisor ran it will execute supervisorrouter.js file
+// //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",Supervisorrouter);
 
 
 //defining a port to run the application
 //use port 8070 or use any other port if the 8070 is unavailable 
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 8091;
 
 //running the app in previously defined port
 const server = app.listen(PORT,() =>{
