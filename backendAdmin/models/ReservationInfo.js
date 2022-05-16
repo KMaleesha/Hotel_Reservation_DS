@@ -2,8 +2,8 @@ const mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
 
-const reservationInfoSchema = new Schema({
-    name: {
+const ReservationInfoSchema = new Schema({
+    roomNum: {
         type: String,
         required : true
     },
@@ -18,8 +18,12 @@ const reservationInfoSchema = new Schema({
     price : {
         type : Number,
         required : true
-    }
+    },
+    imgUrl: {
+        type: String,
+        required: false
+    },
 })
 
-const reservationInfo = mongoose.model("reservationInfo", ReadableStream)
-module.exports = reservationInfo
+const ReservationInfo = mongoose.model("reservationInfo", ReservationInfoSchema)
+module.exports = ReservationInfo
