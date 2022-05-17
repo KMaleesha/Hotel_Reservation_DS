@@ -12,14 +12,15 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 
-const AdminRouter = require("./routes/adminrouter.js");
+const AdminRouter = require("./SystemAdmin/routes/adminrouter");
 // const StudentRouter = require("./routes/studentrouter.js");
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 // const Supervisorrouter = require("./routes/supervisorrouter");
 
-const reservationInfoRouter = require('./routes/reservationInforouter.js');
+const reservationInfoRouter = require('./SystemAdmin/routes/reservationInforouter.js');
+const HotelAdminrouter = require('./HotelAdmin/routes/HotelAdminrouter');
 
 
 //getting the database url
@@ -54,6 +55,7 @@ app.use("/admin",AdminRouter);
 // app.use("/supervisor",Supervisorrouter);
 
 app.use('/ReservationInfo', reservationInfoRouter);
+app.use("/hotelAdmin",HotelAdminrouter);
 
 
 //defining a port to run the application
