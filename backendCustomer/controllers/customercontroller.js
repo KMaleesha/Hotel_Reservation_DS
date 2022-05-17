@@ -2,7 +2,7 @@ const bcrypt = require('bcrypt');
 const crypto = require("crypto");
 const jwt = require("jsonwebtoken");
 const Customer = require('../models/Customer');
-const sendEmail = require("../utils/sendEmail")
+
 
 //Customer sign in controller
 exports.customerSignin = async(req, res) => {
