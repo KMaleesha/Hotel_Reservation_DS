@@ -19,6 +19,8 @@ const AdminRouter = require("./routes/adminrouter.js");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 // const Supervisorrouter = require("./routes/supervisorrouter");
 
+const reservationInfoRouter = require('./routes/reservationInforouter.js');
+
 
 //getting the database url
 const URL = process.env.MONGODB_URL;
@@ -34,7 +36,7 @@ mongoose.connect(URL,{
 //database connection
 const connection = mongoose.connection;
 connection.once("open", function() {
-    console.log("Research tool db connection success");
+    console.log("Sara Hotel Reservation connection success");
 }); 
 
 
@@ -50,6 +52,8 @@ app.use("/admin",AdminRouter);
 // app.use("/panelmember",PanelmemberRouter);
 // //when http://localhost:8070/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",Supervisorrouter);
+
+app.use('/ReservationInfo', reservationInfoRouter);
 
 
 //defining a port to run the application
