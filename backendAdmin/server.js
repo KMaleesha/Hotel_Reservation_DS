@@ -34,7 +34,7 @@ mongoose.connect(URL,{
 //database connection
 const connection = mongoose.connection;
 connection.once("open", function() {
-    console.log("Research tool db connection success");
+    console.log("Sara Hotel Reservation connection success");
 }); 
 
 
