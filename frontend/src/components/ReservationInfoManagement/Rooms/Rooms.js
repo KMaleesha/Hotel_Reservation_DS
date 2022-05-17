@@ -43,8 +43,8 @@ function Rooms() {
     history.push(`/hotel/room/${id}`)
   }
 
-  function addRoom(){
-    history.push(`/hotel/addRoom`)
+  function addReservationInfo(){
+    history.push(`/hotel/addReservationInfo`)
   }
 
   return (
@@ -85,7 +85,7 @@ function Rooms() {
       </div>
       <div className='roomGrid'>
         {isAdmin && 
-            <Button  className="mx-2 roomBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addRoom()}>
+            <Button  className="mx-2 roomBtn" style={{backgroundColor:blue[400],color:'white'}} onClick={()=>addReservationInfo()}>
             Add Room <AddIcon/>
             </Button>  
         }

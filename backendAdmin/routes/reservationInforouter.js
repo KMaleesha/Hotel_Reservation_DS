@@ -14,6 +14,6 @@ router.put('/update/:id', updateReservationInfo);
 router.get('/', viewAllReservationInfo);
 
 //view one Reservation Information
-router.get('/item/:id',viewOneReservationInfo);
+router.get('/:id',viewOneReservationInfo);
 
 module.exports = router;

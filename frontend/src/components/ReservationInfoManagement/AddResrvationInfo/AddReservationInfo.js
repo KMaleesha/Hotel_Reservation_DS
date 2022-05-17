@@ -73,7 +73,7 @@ function AddReservationInfo() {
         <div className='row'>
             <div className='col-12'>
                 <div className="pb-2 px-3 d-flex flex-wrap align-items-center justify-content-between">
-                    <h2>&nbsp;Add New Reservation</h2>
+                    <h2>&nbsp;Add New Hotel Room</h2>
                 </div>
             </div>
         </div>
@@ -97,7 +97,7 @@ function AddReservationInfo() {
                                 <div className='col-md-8 mb-4'>
                                     <div className='form-price'>
                                         <OutlinedInput
-                                            type="price" id="price" placeholder="Reservation Price" required fullWidth
+                                            type="price" id="price" placeholder="Room Price" required fullWidth
                                             onChange={(e)=>setPrice(e.target.value)}
                                             inputProps={{style: {padding: 12}}}
                                         />
@@ -107,7 +107,7 @@ function AddReservationInfo() {
                             <div className='col-md-10 mb-4'>
                                 <div className='form-description'>
                                     <TextField
-                                        id="description" placeholder="Reservation Description" 
+                                        id="description" placeholder="Room Description" 
                                         required fullWidth variant="outlined" 
                                         onChange={(e)=>setDescription(e.target.value)}
                                         inputProps={{style: {padding: 12}}}
@@ -173,7 +173,7 @@ function AddReservationInfo() {
                 <div className='row'>
                     <div className="col-md-12">
                         <div className="form-group">
-                            <input className="form-submit-btn" type="submit" value="Add Reservation Info" />
+                            <input className="form-submit-btn" type="submit" value="Add Room Info" />
                         </div>
                     </div>
                 </div>
