@@ -123,19 +123,19 @@ function AddReservationInfo() {
                                 </div>
                                     <div className='form-check form-check-inline'>
                                             <input
-                                                className="form-check-input" type="radio" name="Type" id="Pre-Paid" value="Pre-Paid" required
+                                                className="form-check-input" type="radio" name="Type" id="prepaid" value="prepaid" required
                                                 onChange={(e)=>setType(e.target.value)}
                                             />
-                                            <label className="form-check-label" for="Pre-Paid">
+                                            <label className="form-check-label" for="prepaid">
                                                 Pre-Paid
                                             </label>
                                     </div>
                                     <div className='form-check form-check-inline'>
                                             <input 
-                                                className="form-check-input" type="radio" name="Type" id="Post-Paid" value="Post-Paid" required
+                                                className="form-check-input" type="radio" name="Type" id="postpaid" value="postpaid" required
                                                 onChange={(e)=>setType(e.target.value)}
                                             />
-                                            <label className="form-check-label" for="Post-Paid">
+                                            <label className="form-check-label" for="postpaid">
                                                 Post-Paid
                                             </label>
                                     </div>
