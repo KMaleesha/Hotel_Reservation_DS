@@ -12,12 +12,15 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 
-const AdminRouter = require("./routes/adminrouter.js");
+const AdminRouter = require("./SystemAdmin/routes/adminrouter");
 // const StudentRouter = require("./routes/studentrouter.js");
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 // const Supervisorrouter = require("./routes/supervisorrouter");
+
+const reservationInfoRouter = require('./SystemAdmin/routes/reservationInforouter.js');
+const HotelAdminrouter = require('./HotelAdmin/routes/HotelAdminrouter');
 
 
 //getting the database url
@@ -34,7 +37,7 @@ mongoose.connect(URL,{
 //database connection
 const connection = mongoose.connection;
 connection.once("open", function() {
-    console.log("Research tool db connection success");
+    console.log("Sara Hotel Reservation connection success");
 }); 
 
 
@@ -50,6 +53,9 @@ app.use("/admin",AdminRouter);
 // app.use("/panelmember",PanelmemberRouter);
 // //when http://localhost:8070/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",Supervisorrouter);
+
+app.use('/ReservationInfo', reservationInfoRouter);
+app.use("/hotelAdmin",HotelAdminrouter);
 
 
 //defining a port to run the application

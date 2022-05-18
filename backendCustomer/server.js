@@ -12,7 +12,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 
-//const AdminRouter = require("./routes/adminrouter.js");
+const CustomerRouter = require("./routes/customerrouter");
 // const StudentRouter = require("./routes/studentrouter.js");
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
@@ -34,12 +34,12 @@ mongoose.connect(URL,{
 //database connection
 const connection = mongoose.connection;
 connection.once("open", function() {
-    console.log("Research tool db connection success");
+    console.log("Sara Hotel Reservation db connection success");
 }); 
 
 
-//when http://localhost:8090/admin ran it will execute adminrouter.js file
-//app.use("/admin",AdminRouter);
+//when http://localhost:8090/customer ran it will execute customerrouter.js file
+app.use("/customer",CustomerRouter);
 //when http://localhost:8090/student ran it will execute StudentRouter.js file
 //  app.use("/student",StudentRouter);
 //  //when http://localhost:8090/student ran it will execute StudentRouter.js file
