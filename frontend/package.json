@@ -14,9 +14,11 @@
     "@mui/icons-material": "^5.0.3",
     "@mui/lab": "^5.0.0-alpha.50",
     "@mui/material": "^5.0.3",
+    "@sendgrid/mail": "^7.6.2",
     "@testing-library/jest-dom": "^5.14.1",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "@vonage/server-sdk": "^2.10.11",
     "aos": "^2.3.4",
     "axios": "^0.21.1",
     "cloudinary-react": "^1.7.0",
@@ -34,6 +36,7 @@
     "react-scripts": "4.0.3",
     "react-to-print": "^2.13.0",
     "styled-components": "^5.3.1",
+    "twilio": "^3.73.0",
     "web-vitals": "^1.1.2"
   },
   "scripts": {

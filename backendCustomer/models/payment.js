@@ -6,15 +6,24 @@ const PaymentSchema=new Schema({
     
     customerID:{
         type: mongoose.Schema.Types.ObjectId,
-        ref:'patient',
+        ref:'customer',
         required:true
     }, 
-   roomID:{
+    roomID:{
        type: mongoose.Schema.Types.ObjectId,
-       ref:'product',
+       ref:'reservationInfo',
        required:true
    },
     amount:{
+        type:Number,
+        required: true
+    },
+    email:{
+        type:Number,
+        required: true
+
+    },
+    mobile:{
         type:Number,
         required: true
     },

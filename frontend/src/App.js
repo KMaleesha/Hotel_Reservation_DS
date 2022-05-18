@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import './App.css';
 import Header from './components/Header/Header'
 import AdminSignIn from './components/AdminManagement/AdminLogin';
+import Booking from './components/BookingManagement/Booking';
 import CustomerSignIn from './components/CustomerManagement/SignIn/SignIn';
 import HotelAdminSignIn from './components/HotelAdminManagement/HotelAdminLogin/HotelAdminLogin';
 import CustomerSignUp from './components/CustomerManagement/SignUp/SignUp';
@@ -18,6 +19,9 @@ function App() {
       <Router>
         <div>
             <Header/>
+            
+            <Route path="hotel/admin/signin" exact component={AdminSignIn} />
+            <Route path="/booking/:id/:type" exact component={Booking} />
             
             <Route path="/admin/signin" exact component={AdminSignIn} />
             <Route path="/customer/signin" exact component={CustomerSignIn} />

@@ -12,12 +12,17 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 
+
+const smsRouter = require("./routes/smsrouter.js");
+const paymentRouter = require("./routes/paymentrouter.js");
+
 const CustomerRouter = require("./routes/customerrouter");
 // const StudentRouter = require("./routes/studentrouter.js");
+
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
-// const Supervisorrouter = require("./routes/supervisorrouter");
+const BookingRouter = require("./routes/bookingrouter");
 
 
 //getting the database url
@@ -38,18 +43,25 @@ connection.once("open", function() {
 }); 
 
 
+
+//when http://localhost:8090/sms ran it will execute smsRouter.js file
+ app.use("/sms",smsRouter);
+//when http://localhost:8090/Payment ran it will execute paymentRouter.js file
+ app.use("/payment",paymentRouter);
+
 //when http://localhost:8090/customer ran it will execute customerrouter.js file
 app.use("/customer",CustomerRouter);
 //when http://localhost:8090/student ran it will execute StudentRouter.js file
 //  app.use("/student",StudentRouter);
+
 //  //when http://localhost:8090/student ran it will execute StudentRouter.js file
 //  app.use("/progress",ProgressRouter);
 // //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",SupervisorRouter);
 // //when http://localhost:8090/panelmember ran it will execute panelmemberrouter.js file
 // app.use("/panelmember",PanelmemberRouter);
-// //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
-// app.use("/supervisor",Supervisorrouter);
+//when http://localhost:8090/booking ran it will execute bookingrouter.js file
+app.use("/booking",BookingRouter);
 
 
 //defining a port to run the application
