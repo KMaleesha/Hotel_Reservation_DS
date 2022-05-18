@@ -2,7 +2,7 @@ import React,{useState} from "react"
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 import './AddPayment.css';
-import Paypal from '../../PaymentManagement/Paypal'
+import Paypal from './Paypal'
 import { OutlinedInput,InputAdornment} from "@material-ui/core";
 
 
@@ -15,6 +15,7 @@ export default function BuyPayment(props){
     const history = useHistory();
     const [email,setEmail]= useState("");
     const [mobile,setMobile]= useState("");
+    console.log(customerID, roomNum, amount, date)
     //const client = require('twilio')('process.env.ACCOUNT_SID','process.env.AUTH_TOKEN');
     const sgMail = require('@sendgrid/mail');
       sgMail.setApiKey = process.env.ApiKey 
@@ -153,8 +154,8 @@ export default function BuyPayment(props){
                                     <div className="form-group">
                                         <OutlinedInput  
                                             type="text" id="amount" placeholder="Total Amount" 
-                                            required fullWidth readOnly 
-                                            value={amount}
+                                            required fullWidth  
+                                            
                                             inputProps={{style: {padding: 12}}}
                                             startAdornment={
                                                 <InputAdornment position="start">

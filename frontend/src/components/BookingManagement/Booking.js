@@ -36,7 +36,7 @@ function Bookings(props) {
     Aos.init({duration:2000})
 
     useEffect(() => {
-        //check Bookingt type
+        //check Booking type
         if (props.match.params.type === "postpaid") {
             setIsType(true)
         }
@@ -47,6 +47,7 @@ function Bookings(props) {
         //Fetch Room 
         async function getData() {
             await axios.get(`http://localhost:8090/booking/${props.match.params.id}&${props.match.params.type}`,config).then((res) => {
+                console.log(res)
                 setRooms(res.data.result) 
             }).catch((error) => {
               alert("Failed to fetch Bookings")
@@ -184,12 +185,16 @@ function Bookings(props) {
                         <div className="dropdown">
                             <span>{isType ? <h2>Bookings</h2> : <h2>Paid Bookings</h2> }</span>
                             <div className="dropdown-content">
-                                {isType ? <a href={`/booking/${props.match.params.id}/pre-paid`}><h5 className="linkColor">Paid Bookings</h5></a> : <a href={`/booking/${props.match.params.id}/post-paid`}><h5 className="linkColor">Bookings</h5></a>}
+                                {isType ? <a href={`/booking/${props.match.params.id}/prepaid`}><h5 className="linkColor">Paid Bookings</h5></a> : <a href={`/booking/${props.match.params.id}/postpaid`}><h5 className="linkColor">Bookings</h5></a>}
                             </div>
                         </div>
                     </div>                    
                     <div className="col-3">
-                    </div>
+                </div>
+                <br/>
+                <br/>
+                <br/>
+                <br/>
                     {/* <div className="col-5">
                         <div className="px-3 search" align="center">
                             <input 
@@ -244,9 +249,13 @@ function Bookings(props) {
                                         </div>
                                         {/* Room Name and description */}
                                         <div className="col-sm-4">                                                
-                                            <h4>{Room.roomNum.name}</h4>
-                                            <p className="textShort mb-1">{Room.roomID.description}</p>   
+                                            <h4>{Room.roomID.roomNum}</h4>
+                                            <p className="textShort mb-1">{Room.roomID.description}</p>    
                                             {/* <Link to={`/pharmacy/item/${Room.roomNum._id}`}>Show more</Link> */}
+                                        </div>
+                                        <div className="col-sm-2">
+                                            <h6>{Room.type}</h6>
+                                            <h6>{Room.date}</h6>
                                         </div>
                                         {/* <div className="col-sm-2">
                                             <div> */}
@@ -266,7 +275,7 @@ function Bookings(props) {
                                         </div> */}
                                         {/* Price */}
                                         <div className="col-sm-2">
-                                            LKR&nbsp;{Room.price}.00
+                                            LKR&nbsp;{Room.roomID.price}.00
                                             {}
                                         </div>
                                         <div className="col-sm-1">

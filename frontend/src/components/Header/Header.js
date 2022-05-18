@@ -108,7 +108,7 @@ function Header() {
     }
 
     function cart() {
-        history.push(`/cart/${user._id}/shopping`)
+        history.push(`/booking/${user._id}/postpaid`)
     }
 
     function signin() {
