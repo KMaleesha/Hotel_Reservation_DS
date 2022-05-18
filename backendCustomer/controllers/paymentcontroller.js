@@ -2,12 +2,12 @@ const Payment = require("../models/payment");
 
 //Add a payment
 exports.addPayment = async(req,res) => {
-    const{ customerID,amount,creditCardNumber } = req.body; 
-    let today = new Date();
-    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
+    const{ customerID,roomID,amount,email,mobile,date } = req.body; 
+  
+    
     try{
         //creating a new payment
-        const payment = await Payment.create({customerID, amount, creditCardNumber,date,roomID});
+        const payment = await Payment.create({customerID,roomID, amount, email,mobile,date});
 
         
         res.status(200).json ({success:true,message:"payment added",payment})
@@ -20,8 +20,6 @@ exports.addPayment = async(req,res) => {
 exports.updatePayment = async(req,res)=>{
     let paymentID=req.params.id;
     const{ amount, creditCardNumber} =req.body;
-    let today = new Date();
-    const date = (today.getDate()+"/"+(today.getMonth()+1)+"/"+today.getFullYear());
     const updatePayment={ amount, creditCardNumber, date}
 
     try{
