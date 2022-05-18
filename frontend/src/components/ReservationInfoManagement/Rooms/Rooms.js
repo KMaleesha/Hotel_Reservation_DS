@@ -107,7 +107,7 @@ function Rooms() {
                     <div align ="right">
                       <span>
                           <button className='roomBtn' style={{backgroundColor:orange[600]}}
-                          onClick={()=>""(Room._id, user._id, Room.price)}> Reserve
+                          onClick={()=>""(Room._id, user._id, Room.price)}> Book Now
                           </button>
                           &nbsp;&nbsp;&nbsp;
                           <button className="roomBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Room._id)}> Details </button>

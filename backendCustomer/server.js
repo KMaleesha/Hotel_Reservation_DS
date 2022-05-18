@@ -19,6 +19,8 @@ app.use(cors());
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 // const Supervisorrouter = require("./routes/supervisorrouter");
 
+const reservationInfoRouter = require('./routes/reservationInforouter.js');
+
 
 //getting the database url
 const URL = process.env.MONGODB_URL;
@@ -50,6 +52,8 @@ connection.once("open", function() {
 // app.use("/panelmember",PanelmemberRouter);
 // //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
 // app.use("/supervisor",Supervisorrouter);
+
+app.use('/ReservationInfo', reservationInfoRouter);
 
 
 //defining a port to run the application

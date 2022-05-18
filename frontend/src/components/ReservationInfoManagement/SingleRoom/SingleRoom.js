@@ -14,11 +14,12 @@ function RoomDetails(props) {
     const [isAdmin,setIsAdmin]=useState(false)
     const[id,setId]=useState("");
     const[roomNum,setroomNum]=useState("");
+    const[type, settype] = useState("");
     const[description,setDescription]=useState("");
     const[price,setPrice]=useState("");
     const[imgUrl,setImgUrl]=useState("");
-    const [rooms, setRooms] = useState([])
-    const history=useHistory()
+    const [rooms, setRooms] = useState([]);
+    const history=useHistory();
     const [user, setUser] = useState("");
 
     const config = {
@@ -40,6 +41,7 @@ function RoomDetails(props) {
         axios.get(`http://localhost:8070/reservationInfo/${props.match.params.id}`).then((res) => {
             setId(res.data.reservationInfo._id) 
             setroomNum(res.data.reservationInfo.roomNum)
+            settype(res.data.reservationInfo.type)
             setDescription(res.data.reservationInfo.description)
             setPrice(res.data.reservationInfo.price)   
             setImgUrl(res.data.reservationInfo.imgUrl)
@@ -83,6 +85,7 @@ function RoomDetails(props) {
                         <div className='row'>
                             <h2>{roomNum}</h2>
                         </div>
+                        <h5>{type}</h5>
                         <h5>Rs.{price}.00</h5>
                         <p className='text-muted'>{description}</p>
                 </div>
@@ -100,14 +103,14 @@ function RoomDetails(props) {
                                 </div>
                                 :
                                 <div>
-                                    {/* <button className="mx-2 roomBtn" style={{backgroundColor:orange[500]}} 
-                                    onClick={()=>AddToCart(id, user._id, price)}>
-                                    Add To Cart <ShoppingCartIcon/>
+                                    <button className="mx-2 roomBtn" style={{backgroundColor:orange[500]}} 
+                                    onClick={()=>""(id, user._id, price)}>
+                                    Add To MyBookings
                                     </button> 
                                     <button className="mx-2 roomBtn" style={{backgroundColor:red[500]}} 
-                                        onClick={()=>Buy()}>
-                                        Buy Now
-                                    </button>  */}
+                                        onClick={()=>""()}>
+                                        Book Now
+                                    </button> 
                             </div>   
                             }
                         </div>
@@ -133,7 +136,7 @@ function RoomDetails(props) {
                                     </div>
                                     <div className='p-3'>
                                         <h7>{Room.roomNum}</h7>
-                                        {/* <h7>{Room.type}</h7> */}
+                                        <h7>{Room.type}</h7>
                                         <h6>Rs.{Room.price}.00</h6>
                                     <div align ='right'>
                                         <span>
