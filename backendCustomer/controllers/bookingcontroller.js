@@ -72,7 +72,7 @@ exports.viewBooking = async(req,res) => {
     try {
         //find booking by customer id and booking id
         const booking = await Booking.find({customerID,type}).populate(
-            {path:'roomID', select:['price','description','imgUrl']});
+            {path:'roomID', select:['roomNum','price','description','imgUrl']});
         //success message
         res.status(200).json({success: true,result:booking})
     }catch(error){

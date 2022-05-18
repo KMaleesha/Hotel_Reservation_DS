@@ -1,11 +1,11 @@
 import axios from "axios";
 
-export const AddBooking = (roomID,id,Price,Date) => {
+export const AddBooking = (roomID,id,Price,Date,Type) => {
 
     const roomid = roomID
     const customerID = id
     const date = Date
-    // const type = "pre-paid"
+    const type = Type
     const price = Price
     // let total = quantity*price;
 

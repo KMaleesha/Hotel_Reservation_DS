@@ -2,11 +2,9 @@ const router = require("express").Router();
 const {addbooking, updatebooking, deletebooking, viewBooking, viewOneBooking} = require('../controllers/bookingcontroller.js')
 // const customerauth = require('../middleware/customerauth');
 
-router.post('/add', addbooking);
+router.post('/add', customerauth, addbooking);
 
-// router.put('/update/:id', updatebooking);
-
-router.delete('/delete/:id', deletebooking);
+router.delete('/delete/:id', customerauth, deletebooking);
 // router.post('/add',customerauth, addbooking);
 
 // router.put('/update/:id',customerauth, updatebooking);

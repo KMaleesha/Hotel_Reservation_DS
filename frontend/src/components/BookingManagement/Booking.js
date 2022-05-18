@@ -37,10 +37,10 @@ function Bookings(props) {
 
     useEffect(() => {
         //check Bookingt type
-        if (props.match.params.type === "post-paid") {
+        if (props.match.params.type === "postpaid") {
             setIsType(true)
         }
-        else if(props.match.params.type === "pre-paid"){
+        else if(props.match.params.type === "prepaid"){
             setIsType(false)
         }
         
@@ -165,9 +165,9 @@ function Bookings(props) {
     //     })
     //   }
 
-    //   function checkout() {
-    //       history.push(`/patient/payment/`)
-    //   }
+      function order() {
+          history.push(`/customer/taxi/`)
+      }
 
     //   function generateReport() {
     //     history.push(`/cart/report/${props.match.params.id}/${props.match.params.type}`)
@@ -178,7 +178,7 @@ function Bookings(props) {
     return (
         <div>
             <div className="container">
-                {/* check cart type */}
+                {/* check booking type */}
                 <div className = "row">
                     <div className="col-4">
                         <div className="dropdown">
@@ -240,30 +240,30 @@ function Bookings(props) {
                                         </div> */}
                                         {/* Room Image */}
                                         <div className="col-sm-2">
-                                            <div ><img className="room-Img" src={Room.roomNum.imgUrl} alt="room"></img></div>
+                                            <div ><img className="room-Img" src={Room.roomID.imgUrl} alt="room"></img></div>
                                         </div>
                                         {/* Room Name and description */}
                                         <div className="col-sm-4">                                                
                                             <h4>{Room.roomNum.name}</h4>
-                                            <p className="textShort mb-1">{Room.roomNum.description}</p>   
+                                            <p className="textShort mb-1">{Room.roomID.description}</p>   
                                             {/* <Link to={`/pharmacy/item/${Room.roomNum._id}`}>Show more</Link> */}
                                         </div>
-                                        <div className="col-sm-2">
-                                            <div>
+                                        {/* <div className="col-sm-2">
+                                            <div> */}
                                                 {/* Quantity decrease button */}
                                                 {/* <IconButton onClick={()=>decrease(Room._id,Room.roomNum.price)}>
                                                     <SubIcon style={{fontSize:"small"}}></SubIcon>
                                                 </IconButton> */}
 
                                                 {/* Quantity */}
-                                                <Input type="text" name="quantity" className="quantity" disableUnderline margin="dense" readOnly value={(Room.quantity)}/>
+                                                {/* <Input type="text" name="quantity" className="quantity" disableUnderline margin="dense" readOnly value={(Room.quantity)}/> */}
                                                 
                                                 {/* Quantity decrease button */}
                                                 {/* <IconButton onClick={()=>increment(Room._id,Room.roomNum.price)}>
                                                     <AddIcon style={{fontSize:"small"}}></AddIcon>
                                                 </IconButton> */}
-                                            </div>
-                                        </div>
+                                            {/* </div>
+                                        </div> */}
                                         {/* Price */}
                                         <div className="col-sm-2">
                                             LKR&nbsp;{Room.price}.00
@@ -279,29 +279,29 @@ function Bookings(props) {
                             </div>
                         ))}
                     </div>
-                    {/* Order Summary Card */}
+                    {/* Order Taxi Card */}
                     <div className="col-xl-4" >
                         <div className="cardSummary shadow">
-                            <h5>Order Summary</h5>
+                            <h5>Order Taxi</h5>
                                 <br/>
                                 <div className="row">
                                     {/* Address */}
-                                    <div className="col-xl-12 mb-3">
+                                    {/* <div className="col-xl-12 mb-3">
                                         <h6>Address:</h6>
                                         <OutlinedInput  
-                                            type="text" id="lastname" placeholder="Address" 
+                                            type="text" id="adress" placeholder="Address" 
                                             required fullWidth
                                             value={customer.address}
                                         />                                   
-                                    </div>
+                                    </div> */}
                                     <hr/>                                                                  
                                     {/* Checkout Button */}
-                                    {/* <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={checkout}>
-                                    <b>Checkout</b>
-                                    </Button> */}
+                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={order}>
+                                    <b>Order</b>
+                                    </Button>
                                 </div>                                
                         </div>
-                        <div>
+                        {/* <div> */}
                             {/* Report Generate Button  */}
                             {/* <center>
                             <Button variant="contained" className="mb-4" disableElevation size="large" onClick={generateReport}
@@ -309,7 +309,7 @@ function Bookings(props) {
                                 Generate Report
                             </Button>
                             </center> */}
-                        </div>
+                        {/* </div> */}
                     </div>
                 </div>        
             </div>               

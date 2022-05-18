@@ -3,10 +3,12 @@ import { Link, useHistory } from 'react-router-dom';
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
+import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import './SignIn.css';
 
-function AdminLogin() {
+function Login() {
+    const CLIENT_ID = process.env.REACT_APP_Google_ClientID;
 
     const [showPassword, setShowPassword] = useState()
     const [email, setEmail] = useState("");
@@ -29,10 +31,10 @@ function AdminLogin() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8070/admin/signin", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8090/customer/signin", {email, password}, config);
 
-            //setting the patient authorization token
-            localStorage.setItem("adminAuthToken", `Admin ${data.token}`)
+            //setting the customer authorization token
+            localStorage.setItem("customerAuthToken", `Customer ${data.token}`)
             //setting user
             localStorage.setItem("user", JSON.stringify(data.result))
             
@@ -50,11 +52,28 @@ function AdminLogin() {
         }
     }
 
+    const googleSuccess = async (res) => {
+        const result = res?.profileObj;
+        const token = res?.tokenId;
+
+        //setting the customer authorization token
+        localStorage.setItem("customerAuthToken", `Customer ${token}`)
+        //setting user
+        localStorage.setItem("user", JSON.stringify(result))
+
+        history.push('/')
+    }
+
+    const googleFailure = (error) => {
+        alert("Something went wrong");
+    }
+ 
+
     return (
         <div className="container" align="center">
             <div className="card-form">
                 <form className="boxSignIn" onSubmit={signIn}>
-                    <h1 className="form-h1">Admin Login</h1>
+                    <h1 className="form-h1">Customer Login</h1>
                     <input 
                         type="email" 
                         name="email" 
@@ -79,12 +98,22 @@ function AdminLogin() {
                         </IconButton>
                     </span>
 
+                    <Link className="forgot" to="/customer/forgotpassword">Forgot password?</Link> 
                     <input className="form-submit-btn" type="submit" value="Sign In" />
 
-                    <br></br><br></br>
+                    <p className="text-muted">or</p>
+
+                    <GoogleLogin
+                        clientId={CLIENT_ID}
+                        onSuccess={googleSuccess}
+                        onFailure={googleFailure}
+                        cookiePolicy={'single_host_origin'}
+                        theme="dark"
+                    />
+                    <br></br><br></br><br></br>
                     <div className="text-muted">
-                        <p>Are you a Patient? <Link to="/patient/signin">Click here</Link></p>
-                        <p>Are you a doctor? <Link to="/doctor/signin"> Click here</Link></p>
+                        <p>Don't have an account? <Link to="/customer/signup">Sign Up</Link></p>
+                        <p>Are you a Hotel Admin? <Link to="/hotelAdmin/signin"> Click here</Link></p>
                     </div>
                 </form>
             </div>
@@ -92,4 +121,4 @@ function AdminLogin() {
     )
 }
 
-export default AdminLogin
+export default Login
