@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const Admin = require('../models/admin');
 
 //admin sign in controller
-exports.adminsignin = async(req, res) => {
+exports.adminSignin = async(req, res) => {
     const {email, password} = req.body;
 
     // Check if email and password is provided
@@ -37,7 +37,7 @@ exports.adminsignin = async(req, res) => {
 }
 
 //admin sign up controller
-exports.adminsignup = async(req,res) => {
+exports.adminSignup = async(req,res) => {
     const {username, email, password} = req.body;
 
     try {
