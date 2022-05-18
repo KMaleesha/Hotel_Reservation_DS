@@ -17,7 +17,7 @@ app.use(cors());
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
-// const Supervisorrouter = require("./routes/supervisorrouter");
+const BookingRouter = require("./routes/bookingrouter");
 
 
 //getting the database url
@@ -48,8 +48,8 @@ connection.once("open", function() {
 // app.use("/supervisor",SupervisorRouter);
 // //when http://localhost:8090/panelmember ran it will execute panelmemberrouter.js file
 // app.use("/panelmember",PanelmemberRouter);
-// //when http://localhost:8090/supervisor ran it will execute supervisorrouter.js file
-// app.use("/supervisor",Supervisorrouter);
+//when http://localhost:8090/booking ran it will execute bookingrouter.js file
+app.use("/booking",BookingRouter);
 
 
 //defining a port to run the application
