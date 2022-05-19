@@ -83,7 +83,10 @@ function AdminLogin() {
 
                     <br></br><br></br>
                     <div className="text-muted">
+                 
+
                         <p>Are you a Customer? <Link to="/">Click here</Link></p>
+
                     </div>
                 </form>
             </div>
