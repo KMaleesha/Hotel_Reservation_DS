@@ -106,9 +106,9 @@ function Rooms() {
                     <h6>Rs.{Room.price}.00</h6>
                     <div align ="right">
                       <span>
-                          <button className='roomBtn' style={{backgroundColor:orange[600]}}
+                          {/* <button className='roomBtn' style={{backgroundColor:orange[600]}}
                           onClick={()=>""(Room._id, user._id, Room.price)}> Reserve
-                          </button>
+                          </button> */}
                           &nbsp;&nbsp;&nbsp;
                           <button className="roomBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Room._id)}> Details </button>
                       </span>
