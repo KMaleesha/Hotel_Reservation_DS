@@ -36,7 +36,7 @@ function AdminLogin() {
             //setting user
             localStorage.setItem("user", JSON.stringify(data.result))
             
-            history.push('/')
+            history.push('/hotel/rooms')
         } catch (error) {
             if(error.response.status === 404){
                 alert("Invalid Email")
@@ -83,8 +83,8 @@ function AdminLogin() {
 
                     <br></br><br></br>
                     <div className="text-muted">
-                        <p>Are you a Patient? <Link to="/patient/signin">Click here</Link></p>
-                        <p>Are you a doctor? <Link to="/doctor/signin"> Click here</Link></p>
+                        <p>Are you a customer? <Link to="/">Click here</Link></p>
+                        <p>Are you a Hotel admin? <Link to="/hotelAdmin/signin"> Click here</Link></p>
                     </div>
                 </form>
             </div>

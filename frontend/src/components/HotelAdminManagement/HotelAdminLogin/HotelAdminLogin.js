@@ -36,7 +36,7 @@ function Login() {
             //setting user
             localStorage.setItem("user", JSON.stringify(data.result))
             
-            history.push('/')
+            history.push('/hotel/rooms')
         } catch (error) {
             if(error.response.status === 404){
                 alert("Invalid Email")
