@@ -153,46 +153,6 @@ function RoomDetails(props) {
             </table>
         </div>
         <br></br>
-
-        <div>
-            <div>
-                <h2 align ='left'> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                Related Rooms
-                <br></br>
-                </h2>
-            </div>
-            <table className='relatedRoom'>
-                <div className='reservations'>
-                    <div className='container roomGridR'>
-                        {rooms.slice(0, 5).map((Room, key)=>(
-                            <div key={key}>
-                                <div className='roomCard'>
-                                    <div className='imgBx'>
-                                        <img  src={`${Room.imgUrl}`} alt="room"  className="roomReserve"/>
-                                    </div>
-                                    <div className='p-3'>
-                                        <h7>{Room.roomNum}</h7>
-                                        {/* <h7>{Room.type}</h7> */}
-                                        <h6>Rs.{Room.price}.00</h6>
-                                    <div align ='right'>
-                                        <span>
-                                            <button className='roomBtn' style={{backgroundColor:orange[600]}} onClick={()=>""(Room._id, user._id, Room.price)}>
-                                            Reserve
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <button className="roomBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Room._id)}>
-                                            View Room
-                                            </button>
-                                        </span>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </table>
-        </div>
     </div>
   )
 }

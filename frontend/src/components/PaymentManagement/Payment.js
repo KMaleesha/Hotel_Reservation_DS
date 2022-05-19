@@ -10,11 +10,13 @@ export default function BuyPayment(props){
     const user = JSON.parse(localStorage.getItem('user'));
     const customerID = user._id;
     const roomNum = props.match.params.roomNum
-    const amount = props.match.params.price
     const date = props.match.params.date
+    // const amount = props.match.params.price
+   
     const history = useHistory();
     const [email,setEmail]= useState("");
     const [mobile,setMobile]= useState("");
+    const [amount,setAmount]= useState("");
     console.log(customerID, roomNum, amount, date)
     //const client = require('twilio')('process.env.ACCOUNT_SID','process.env.AUTH_TOKEN');
     const sgMail = require('@sendgrid/mail');
@@ -22,76 +24,78 @@ export default function BuyPayment(props){
 
  
    
-    async function transitionSuccess(e){
-        e.preventDefault();
-        const newPayment={
-            customerID,
-            roomNum,
-            amount,
-            email,
-            mobile,
-            date    
-        }
+    // async function transitionSuccess(e){
+    //     e.preventDefault();
+    //     const newPayment={
+    //         customerID,
+    //         roomNum,
+    //         amount,
+    //         email,
+    //         mobile,
+    //         date    
+    //     }
     
-        //getting data from backend
-        await axios.post("http://localhost:8070/Payment/add",newPayment).then((res)=>{
-            alert("Payment Successful")
+    //     //getting data from backend
+    //     await axios.post("http://localhost:8070/Payment/add",newPayment).then((res)=>{
+    //         alert("Payment Successful")
 
-            const paymentID = res.data.payment._id
+    //         const paymentID = res.data.payment._id
 
-           //confirm message
+    //        //confirm message
 
-            const confirm={
-                paymentID,
-                amount,
-                roomNum,
-                date,
-                email,
-                mobile
-            }
+    //         const confirm={
+    //             paymentID,
+    //             amount,
+    //             roomNum,
+    //             date,
+    //             email,
+    //             mobile
+    //         }
             
-            //header with authorization token
-            const config = {
-                headers: {
-                    "content-Type": "application/json",
-                    Authorization: `${localStorage.getItem("customerAuthToken")}`,
-                },
+    //         //header with authorization token
+    //         const config = {
+    //             headers: {
+    //                 "content-Type": "application/json",
+    //                 Authorization: `${localStorage.getItem("customerAuthToken")}`,
+    //             },
                 
-            };
-            //email send 
+    //         };
+    //         //email send 
                 
-                let msg = "Payment Successfull"
+    //             let msg = "Payment Successfull"
             
-                const message = {
-                    to: email,
-                    from: 'saraHotel@info.com',
-                    subject: msg,
-                    html:paymentID,  amount,roomNum,date,email,mobile
-                }
-                sgMail
-                .send(message)
-                // console.log('Email Sent');
-                .catch((error)=>{
-                    console.error('Error: ',error)
-                });
+    //             const message = {
+    //                 to: email,
+    //                 from: 'saraHotel@info.com',
+    //                 subject: msg,
+    //                 html:paymentID,  amount,roomNum,date,email,mobile
+    //             }
+    //             sgMail
+    //             .send(message)
+    //             // console.log('Email Sent');
+    //             .catch((error)=>{
+    //                 console.error('Error: ',error)
+    //             });
               
             
 
-            // navigate to backend sms send 
-            axios.post("http://localhost:8090/sms",confirm,config).then((res)=>{
-                alert ("Confirmation SMS Sended ") 
+    //         // navigate to backend sms send 
+    //         axios.post("http://localhost:8090/sms",confirm,config).then((res)=>{
+    //             alert ("Confirmation SMS Sended ") 
                 
-            }).catch((error)=>{
-                alert("Failed to Confirmation SMS Send")
-            })
+    //         }).catch((error)=>{
+    //             alert("Failed to Confirmation SMS Send")
+    //         })
 
-        }).catch((error)=>{
-            alert("adding failed")
-        }) 
-    }
-    // function transitionSuccess(){
-    //     console.log('Paypal Success')
+    //     }).catch((error)=>{
+    //         alert("adding failed")
+    //     }) 
     // }
+    function transitionSuccess(){
+        console.log('Paypal Success')
+        history.push(`/hotel/rooms`)
+        alert("Payment Successful & Confirmation SMS and Email sent ")
+    }
     function transitionError(){
         console.log('Paypal error')
     }
@@ -149,9 +153,24 @@ export default function BuyPayment(props){
                                         />
                                     </div>
                                 </div>
-
                                 <div className="col-md-12 mb-4">
                                     <div className="form-group">
+                                        <OutlinedInput 
+                                            type="text" id="number" placeholder="number"
+                                            required fullWidth
+                                            onChange={(event)=> {setAmount(event.target.value)}}
+                                            inputProps={{style: {padding: 12}}}
+                                            startAdornment={
+                                                <InputAdornment position="start">
+                                                    USD
+                                                </InputAdornment>
+                                            }
+                                        />
+                                    </div>
+                                </div>
+
+                                <div className="col-md-12 mb-4">
+                                    {/* <div className="form-group">
                                         <OutlinedInput  
                                             type="text" id="amount" placeholder="Total Amount" 
                                             required fullWidth  
@@ -163,7 +182,7 @@ export default function BuyPayment(props){
                                                 </InputAdornment>
                                             }
                                         />
-                                    </div>
+                                    </div> */}
                                 </div>
                                 <div className="col-md-12 mb-4">
                                     <div className="form-group">
