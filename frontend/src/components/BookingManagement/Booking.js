@@ -22,9 +22,13 @@ function Bookings(props) {
     const [rooms, setRooms] = useState([])
     const [isType, setIsType] = useState(true)
     const history = useHistory()
+    const [address, setAddress] = useState([])
+    const [destination, setDestination] = useState([])
+    const [date, setDate] = useState([])
+    const [passengerNo, setPassengerNo] = useState([])
     // const [isCheckAll, setIsCheckAll] = useState(false);
     // const [isCheck, setIsCheck] = useState([]);
-    const [customer, setCustomer] = useState(JSON.parse(localStorage.getItem('customer')));
+    const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
     // let finalTotal = 0;
     
     const config = {
@@ -47,7 +51,6 @@ function Bookings(props) {
         //Fetch Room 
         async function getData() {
             await axios.get(`http://localhost:8090/booking/${props.match.params.id}&${props.match.params.type}`,config).then((res) => {
-                console.log(res)
                 setRooms(res.data.result) 
             }).catch((error) => {
               alert("Failed to fetch Bookings")
@@ -170,6 +173,18 @@ function Bookings(props) {
           history.push(`/customer/taxi/`)
       }
 
+    async function orderTaxi(event) {
+    
+        const newTaxiOrder = {address, destination, date, passengerNo}
+
+        try {
+            await axios.post('http://localhost:8070/taxi/add', newTaxiOrder , config)
+            alert("Taxi Order Added Successfully")  
+            event.target.reset(); 
+        }catch (error) {         
+            alert("Taxi Order can't be Added");
+        }      
+    }
     //   function generateReport() {
     //     history.push(`/cart/report/${props.match.params.id}/${props.match.params.type}`)
     // }
@@ -295,17 +310,44 @@ function Bookings(props) {
                                 <br/>
                                 <div className="row">
                                     {/* Address */}
-                                    {/* <div className="col-xl-12 mb-3">
-                                        <h6>Address:</h6>
+                                    <div className="col-xl-12 mb-3">
+                                        <h6>PickUp:</h6>
                                         <OutlinedInput  
                                             type="text" id="adress" placeholder="Address" 
                                             required fullWidth
-                                            value={customer.address}
+                                            onChange={(e)=>setAddress(e.target.value)}
+                                            value={user.address}
                                         />                                   
-                                    </div> */}
+                                    </div> 
+                                    
+                                    <div className="col-xl-12 mb-3">
+                                    <h6>Destination:</h6>
+                                        <OutlinedInput 
+                                            type="text" id="address" placeholder="Address" required fullWidth
+                                            onChange={(e)=>setDestination(e.target.value)}
+                                            inputProps={{style: {padding: 12}}}
+                                        />
+                                    </div>
+                                   
+                                    <div className="col-xl-12 mb-3">
+                                        <OutlinedInput 
+                                            type="date" id="date" placeholder="Date" 
+                                            onChange={(e)=>setDate(e.target.value)}
+                                            inputProps={{style: {padding: 12}}}
+                                        />
+                                    </div>
+                                    
+                                    <div className="col-xl-12 mb-3">
+                                        <OutlinedInput 
+                                            type="text" id="passengerNo" placeholder="No. of Passengers" 
+                                            onChange={(e)=>setPassengerNo(e.target.value)}
+                                            inputProps={{style: {padding: 12}}}
+                                        />
+                                    </div>
+                                    <hr/>                                                                  
                                     <hr/>                                                                  
                                     {/* Checkout Button */}
-                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={order}>
+                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={orderTaxi}>
                                     <b>Order</b>
                                     </Button>
                                 </div>                                
