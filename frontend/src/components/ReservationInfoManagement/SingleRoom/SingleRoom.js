@@ -4,10 +4,12 @@ import '../Rooms/Rooms.css'
 import '../SingleRoom/SingleRoom.css'
 import axios from 'axios'
 import {orange,blue,red } from '@material-ui/core/colors';
-// import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
+import ShoppingCartIcon from '@material-ui/icons/ShoppingCart';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@material-ui/icons/Edit';
-// import {AddToCart} from './../../../Utils/CartUtils'
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import {AddBooking} from './../../../Utils/BookingUtils'
+import {AddPay} from './../../../Utils/PayUtils'
 
 function RoomDetails(props) {
 
@@ -15,11 +17,14 @@ function RoomDetails(props) {
     const[id,setId]=useState("");
     const[roomNum,setroomNum]=useState("");
     const[description,setDescription]=useState("");
+    const[type,setType]=useState("");
     const[price,setPrice]=useState("");
     const[imgUrl,setImgUrl]=useState("");
     const [rooms, setRooms] = useState([])
     const history=useHistory()
     const [user, setUser] = useState("");
+    const[date,setDate]=useState("");
+    const [isTy,setIsTy]=useState(true)
 
     const config = {
         headers: {
@@ -36,21 +41,34 @@ function RoomDetails(props) {
             setIsAdmin(true)
         }
 
-      async function getRoomDetails() {
-        axios.get(`http://localhost:8070/reservationInfo/${props.match.params.id}`).then((res) => {
-            setId(res.data.reservationInfo._id) 
-            setroomNum(res.data.reservationInfo.roomNum)
-            setDescription(res.data.reservationInfo.description)
-            setPrice(res.data.reservationInfo.price)   
-            setImgUrl(res.data.reservationInfo.imgUrl)
-        }).catch((err) => {
-            alert("Failed to Fetch Rooms")
-        })
-      }
-      getRoomDetails();
-    
+        
+        
+        
+        async function getRoomDetails() {
+            axios.get(`http://localhost:8070/reservationInfo/${props.match.params.id}`).then((res) => {
+                setId(res.data.reservationInfo._id) 
+                setroomNum(res.data.reservationInfo.roomNum)
+                setDescription(res.data.reservationInfo.description)
+                setType(res.data.reservationInfo.type)
+                setPrice(res.data.reservationInfo.price)   
+                setImgUrl(res.data.reservationInfo.imgUrl)
+                
+                //check Booking type
+                if (res.data.reservationInfo.type === "postpaid") {
+                    setIsTy(true)
+                }
+                else if(res.data.reservationInfo.type === "prepaid"){
+                    setIsTy(false)
+                }
+                
+            }).catch((err) => {
+                alert("Failed to Fetch Rooms")
+            })
+        }
+        getRoomDetails();
+        
     }, [props])
-
+    
     async function deleteRoom(id){        
         await axios.delete(`http://localhost:8070/reservationInfo/delete/${id}`,config).then(() => {
             alert("Room deleted successfully")
@@ -68,9 +86,9 @@ function RoomDetails(props) {
         history.push(`/hotel/room/update/${uid}`)
     }
 
-    // function Buy(){
-    //     history.push(`/patient/buyPayment/${id}/${price}`)
-    // }
+    function Pay(){
+        history.push(`/customer/payment/${roomNum}/${date}/${price}`)
+    }
 
 
 
@@ -84,7 +102,15 @@ function RoomDetails(props) {
                             <h2>{roomNum}</h2>
                         </div>
                         <h5>Rs.{price}.00</h5>
+                        <h6>{type}</h6>
                         <p className='text-muted'>{description}</p>
+                        <div >
+                            <OutlinedInput 
+                                type="date" id="date" placeholder="Booking Date" 
+                                onChange={(e)=>setDate(e.target.value)}
+                                inputProps={{style: {padding: 12}}}
+                            />
+                        </div>
                 </div>
             </div>
             <table className='singleItemBtn'>
@@ -101,59 +127,32 @@ function RoomDetails(props) {
                                 :
                                 <div>
                                     {/* <button className="mx-2 roomBtn" style={{backgroundColor:orange[500]}} 
-                                    onClick={()=>AddToCart(id, user._id, price)}>
-                                    Add To Cart <ShoppingCartIcon/>
+                                    onClick={()=>AddBooking(id, user._id, type, price)}>
+                                    Book <ShoppingCartIcon/>
                                     </button> 
                                     <button className="mx-2 roomBtn" style={{backgroundColor:red[500]}} 
                                         onClick={()=>Buy()}>
                                         Buy Now
                                     </button>  */}
+                                     {isTy == true ? 
+                                        <button className="mx-2 roomBtn" style={{backgroundColor:orange[500]}} 
+                                        onClick={()=>AddBooking(id, user._id, price, date, type)}>
+                                        Add to Book <ShoppingCartIcon/>
+                                        </button>
+                                    :
+                                    <div>
+                                        <button className="mx-2 roomBtn" style={{backgroundColor:red[500]}} 
+                                        onClick={()=>Pay()}>
+                                            Pay <ShoppingCartIcon/>
+                                        </button> 
+                                    </div>    
+                                    }
                             </div>   
                             }
                         </div>
             </table>
         </div>
         <br></br>
-
-        <div>
-            <div>
-                <h2 align ='left'> &nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                Related Rooms
-                <br></br>
-                </h2>
-            </div>
-            <table className='relatedRoom'>
-                <div className='reservations'>
-                    <div className='container roomGridR'>
-                        {rooms.slice(0, 5).map((Room, key)=>(
-                            <div key={key}>
-                                <div className='roomCard'>
-                                    <div className='imgBx'>
-                                        <img  src={`${Room.imgUrl}`} alt="room"  className="roomReserve"/>
-                                    </div>
-                                    <div className='p-3'>
-                                        <h7>{Room.roomNum}</h7>
-                                        {/* <h7>{Room.type}</h7> */}
-                                        <h6>Rs.{Room.price}.00</h6>
-                                    <div align ='right'>
-                                        <span>
-                                            <button className='roomBtn' style={{backgroundColor:orange[600]}} onClick={()=>""(Room._id, user._id, Room.price)}>
-                                            Reserve
-                                            </button>
-                                            &nbsp;&nbsp;&nbsp;
-                                            <button className="roomBtn" style={{backgroundColor:red[400]}} onClick={()=>view(Room._id)}>
-                                            View Room
-                                            </button>
-                                        </span>
-                                    </div>
-                                    </div>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </table>
-        </div>
     </div>
   )
 }

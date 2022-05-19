@@ -12,15 +12,15 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(cors());
 
 
-const AdminRouter = require("./SystemAdmin/routes/adminrouter");
+const AdminRouter = require("./routes/adminrouter");
 // const StudentRouter = require("./routes/studentrouter.js");
 // const ProgressRouter = require("./routes/progressrouter.js");
 // const SupervisorRouter = require("./routes/supervisorrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 // const Supervisorrouter = require("./routes/supervisorrouter");
 
-const reservationInfoRouter = require('./SystemAdmin/routes/reservationInforouter.js');
-const HotelAdminrouter = require('./HotelAdmin/routes/HotelAdminrouter');
+const reservationInfoRouter = require('./routes/reservationInforouter.js');
+const HotelAdminrouter = require('./routes/HotelAdminrouter');
 
 
 //getting the database url

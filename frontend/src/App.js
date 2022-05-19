@@ -1,5 +1,9 @@
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 
+import PrivateRoute from './Routes/PrivateRoute';
+import CustomerPrivateRoute from './Routes/CustomerPrivateRoute';
+import HotelAdminPrivateRoute from './Routes/HotelAdminPrivateRoute';
+import Footer from './components/Footer/Footer';
 import './App.css';
 import Header from './components/Header/Header'
 import AdminSignIn from './components/AdminManagement/AdminLogin';
@@ -11,6 +15,8 @@ import HotelAdminSignUp from './components/HotelAdminManagement/HotelAdminSignUp
 import AddReservationInfo from './components/ReservationInfoManagement/AddResrvationInfo/AddReservationInfo';
 import Rooms from './components/ReservationInfoManagement/Rooms/Rooms';
 import SingleRoom from './components/ReservationInfoManagement/SingleRoom/SingleRoom';
+import payment from './components/PaymentManagement/Payment';
+
 
 function App() {
   return (
@@ -20,18 +26,21 @@ function App() {
         <div>
             <Header/>
             
-            <Route path="hotel/admin/signin" exact component={AdminSignIn} />
-            <Route path="/booking/:id/:type" exact component={Booking} />
-            
             <Route path="/admin/signin" exact component={AdminSignIn} />
-            <Route path="/customer/signin" exact component={CustomerSignIn} />
-            <Route path="/hotelAdmin/signin" exact component={HotelAdminSignIn} />
-            <Route path="/customer/signup" exact component={CustomerSignUp} />
-            <Route path="/hotelAdmin/signup" exact component={HotelAdminSignUp} />
+            <Route path="hotel/admin/signin" exact component={AdminSignIn} />
             <Route path = '/admin/addReservationInfo' exact component={AddReservationInfo} />
-            <Route path = '/admin/rooms' exact component={ Rooms }/>
-            <Route path= '/admin/singleRoom/:id' exact component= {SingleRoom} />
 
+            <Route path="/hotelAdmin/signin" exact component={HotelAdminSignIn} />
+            <Route path="/hotelAdmin/signup" exact component={HotelAdminSignUp} />
+
+            <Route path="/" exact component={CustomerSignIn} />
+            <Route path = '/hotel/rooms' exact component={ Rooms }/>
+            <Route path= '/hotel/singleRoom/:id' exact component= {SingleRoom} />
+            <Route path="/customer/signup" exact component={CustomerSignUp} />
+            <CustomerPrivateRoute path="/booking/:id/:type" exact component={Booking} />            
+            <CustomerPrivateRoute path="/customer/payment/:roomNum/:date/:amount" exact component= {payment}/>
+
+            <Footer/>
         </div>
       </Router>
     </div>

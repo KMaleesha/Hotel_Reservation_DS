@@ -38,7 +38,7 @@ function Login() {
             //setting user
             localStorage.setItem("user", JSON.stringify(data.result))
             
-            history.push('/')
+            history.push('/hotel/rooms')
         } catch (error) {
             if(error.response.status === 404){
                 alert("Invalid Email")
@@ -52,21 +52,7 @@ function Login() {
         }
     }
 
-    const googleSuccess = async (res) => {
-        const result = res?.profileObj;
-        const token = res?.tokenId;
-
-        //setting the customer authorization token
-        localStorage.setItem("customerAuthToken", `Customer ${token}`)
-        //setting user
-        localStorage.setItem("user", JSON.stringify(result))
-
-        history.push('/')
-    }
-
-    const googleFailure = (error) => {
-        alert("Something went wrong");
-    }
+   
  
 
     return (
@@ -103,13 +89,6 @@ function Login() {
 
                     <p className="text-muted">or</p>
 
-                    <GoogleLogin
-                        clientId={CLIENT_ID}
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy={'single_host_origin'}
-                        theme="dark"
-                    />
                     <br></br><br></br><br></br>
                     <div className="text-muted">
                         <p>Don't have an account? <Link to="/customer/signup">Sign Up</Link></p>

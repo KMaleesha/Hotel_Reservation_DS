@@ -1,15 +1,10 @@
 const router = require("express").Router();
-const {addbooking, updatebooking, deletebooking, viewBooking, viewOneBooking} = require('../controllers/bookingcontroller.js')
-// const customerauth = require('../middleware/customerauth');
+const {addbooking, deletebooking, viewBooking, viewOneBooking} = require('../controllers/bookingcontroller.js')
+const customerauth = require('../middleware/customerauth');
 
-router.post('/add', customerauth, addbooking);
+router.post('/add', addbooking);
 
 router.delete('/delete/:id', customerauth, deletebooking);
-// router.post('/add',customerauth, addbooking);
-
-// router.put('/update/:id',customerauth, updatebooking);
-
-// router.delete('/delete/:id',customerauth, deletebooking);
 
 router.get('/:id&:type', viewBooking);
 

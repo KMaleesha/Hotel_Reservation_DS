@@ -32,57 +32,22 @@ function Header() {
     const SidebarItem = [
         {
           title: 'Home',
-          path: '/',
+          path: '/hotel/rooms',
           icon: <HomeIcon/>,
           cName: 'nav-text'
         },
         {
-          title: 'Profile',
-           path: `${URL}/profile`,
-          icon: <PersonIcon/>,
-          cName: 'nav-text'
-        },
-        {
-            title: 'Pharmacy',
-            path: '/pharmacy/items',
-            icon: <LocalHospitalIcon/>,
-            cName: 'nav-text'
-        },
-        {
-          title: 'Appointments',
-          path: `/Appointment/${user._id}`,
-          icon: <EventAvailableIcon/>,
-          cName: 'nav-text'
-        },
-        {
-          title: 'Prescriptions',
-          path: `/prescription/history/${user._id}`,
-          icon: <AssignmentIcon/>,
-          cName: 'nav-text'
-        },
-        {
-          title: 'Cart',
-          path: `/cart/${user._id}/shopping`,
+          title: 'Booking',
+          path: `/booking/${user._id}/postpaid`,
           icon: <ShoppingCartIcon />,
           cName: 'nav-text'
         },
-        {
-            title: 'Payment',
-            path: `/patient/payment/${user._id}`,
-            icon: <MonetizationOnIcon />,
-            cName: 'nav-text'
-        },
-        {
-            title: 'Feedback',
-            path: `/patient/review/${user._id}`,
-            icon: <FeedbackIcon />,
-            cName: 'nav-text'
-        }
+
     ];
 
     useEffect(() => {
         //check whether user has signed in
-        if(localStorage.getItem("patientAuthToken") || localStorage.getItem("doctorAuthToken") || localStorage.getItem("adminAuthToken") ){
+        if(localStorage.getItem("customerAuthToken") || localStorage.getItem("hotelAdminAuthToken") || localStorage.getItem("adminAuthToken") ){
             setIsSignedIn(true)
 
             //get user data
@@ -91,12 +56,12 @@ function Header() {
             }
             
 
-            if(localStorage.getItem("patientAuthToken")){
-                setURL(`/patient`)
+            if(localStorage.getItem("customerAuthToken")){
+                setURL(`/customer`)
             }
 
-            if(localStorage.getItem("doctorAuthToken")){
-                setURL(`/doctor`)
+            if(localStorage.getItem("hotelAdminAuthToken")){
+                setURL(`/hotelAdmin`)
             }
         }else{
             setIsSignedIn(false)
@@ -108,15 +73,15 @@ function Header() {
     }
 
     function cart() {
-        history.push(`/cart/${user._id}/shopping`)
+        history.push(`/booking/${user._id}/postpaid`)
     }
 
     function signin() {
-        history.push('/patient/signin')
+        history.push('/')
     }
 
     function signup() {
-        history.push('/patient/signup')
+        history.push('/customer/signup')
     }
     
     //logout
@@ -146,7 +111,7 @@ function Header() {
                             }      
                         </ul>
                         <div className="header-title">
-                            <h3 onClick={home}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;DS &nbsp; Hotel &nbsp; Care</h3>
+                            <h3 onClick={home}>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Sara&nbsp;Hotel&nbsp;Sri Lanka</h3>
                         </div>
                         <ul className="mx-3">
                             {isSignedIn ?

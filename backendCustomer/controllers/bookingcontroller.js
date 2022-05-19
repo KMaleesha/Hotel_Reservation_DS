@@ -1,4 +1,5 @@
 const Booking = require('../models/booking');
+const ReservationInfo = require('../models/ReservationInfo');
 
 
 //add booking
