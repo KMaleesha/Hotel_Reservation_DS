@@ -45,7 +45,7 @@ function RoomDetails(props) {
         
         
         async function getRoomDetails() {
-            axios.get(`http://localhost:8070/reservationInfo/${props.match.params.id}`).then((res) => {
+            axios.get(`http://localhost:8280/reservation/${props.match.params.id}`).then((res) => {
                 setId(res.data.reservationInfo._id) 
                 setroomNum(res.data.reservationInfo.roomNum)
                 setDescription(res.data.reservationInfo.description)
@@ -83,7 +83,7 @@ function RoomDetails(props) {
         history.push(`/hotel/room/${id}`)
     }
     function update(uid){
-        history.push(`/hotel/room/update/${uid}`)
+        history.push(`/admin/room/update/${uid}`)
     }
 
     function Pay(){

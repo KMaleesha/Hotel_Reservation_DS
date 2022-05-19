@@ -4,15 +4,15 @@ const HotelAdmin = require('../models/HotelAdmin');
 
 //HotelAdmin sign in () 
 exports.signinHotelAdmin = async(req,res) => {
-    const{ slmcreg, password } = req.body;
+    const{ email, password } = req.body;
 
         try{
-            //find the HotelAdmin by SLMC registration number
-            const hotelAdmin = await HotelAdmin.findOne({slmcreg}).select("+password");
+            //find the HotelAdmin by email
+            const hotelAdmin = await HotelAdmin.findOne({email}).select("+password");
 
-            //if the SLMC registration doesn't exist
+            //if the email doesn't exist
             if (!hotelAdmin)
-                return res.status(404).json({message: "Such SLMC registration number doesn't exist"});
+                return res.status(404).json({message: "Such email doesn't exist"});
 
             //compare the password with provided password
             const ispasswordMatch = await bcrypt.compare(password, hotelAdmin.password);
@@ -22,7 +22,7 @@ exports.signinHotelAdmin = async(req,res) => {
                 return res.status(400).json({message: "Invalid Password"});
 
             //creating a token
-            const token = jwt.sign({slmcreg: hotelAdmin.slmcreg, id: hotelAdmin._id}, process.env.JWT_SECRET, {expiresIn:"1h"} )
+            const token = jwt.sign({email: hotelAdmin.email, id: hotelAdmin._id}, process.env.JWT_SECRET, {expiresIn:"1h"} )
 
             //joining the hotelAdmin object and token
             res.status(200).json({result: hotelAdmin, token})

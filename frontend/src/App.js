@@ -15,6 +15,7 @@ import HotelAdminSignUp from './components/HotelAdminManagement/HotelAdminSignUp
 import AddReservationInfo from './components/ReservationInfoManagement/AddResrvationInfo/AddReservationInfo';
 import Rooms from './components/ReservationInfoManagement/Rooms/Rooms';
 import SingleRoom from './components/ReservationInfoManagement/SingleRoom/SingleRoom';
+import UpdateRoom from './components/ReservationInfoManagement/UpdateRoom/UpdateRoom';
 import payment from './components/PaymentManagement/Payment';
 
 
@@ -29,6 +30,7 @@ function App() {
             <Route path="/admin/signin" exact component={AdminSignIn} />
             <Route path="hotel/admin/signin" exact component={AdminSignIn} />
             <Route path = '/admin/addReservationInfo' exact component={AddReservationInfo} />
+            <Route path = '/admin/room/update/:id' exact component = {UpdateRoom} />
 
             <Route path="/hotelAdmin/signin" exact component={HotelAdminSignIn} />
             <Route path="/hotelAdmin/signup" exact component={HotelAdminSignUp} />

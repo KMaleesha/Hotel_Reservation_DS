@@ -31,7 +31,7 @@ function Login() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8090/customer/signin", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8280/customer/login", {email, password}, config);
 
             //setting the customer authorization token
             localStorage.setItem("customerAuthToken", `Customer ${data.token}`)
@@ -87,12 +87,12 @@ function Login() {
                     <Link className="forgot" to="/customer/forgotpassword">Forgot password?</Link> 
                     <input className="form-submit-btn" type="submit" value="Sign In" />
 
-                    <p className="text-muted">or</p>
+                    <p className="text-muted"></p>
 
                     <br></br><br></br><br></br>
                     <div className="text-muted">
                         <p>Don't have an account? <Link to="/customer/signup">Sign Up</Link></p>
-                        <p>Are you a Hotel Admin? <Link to="/hotelAdmin/signin"> Click here</Link></p>
+                        
                     </div>
                 </form>
             </div>

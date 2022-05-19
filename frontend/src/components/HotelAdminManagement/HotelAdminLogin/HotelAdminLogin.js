@@ -3,12 +3,11 @@ import { Link, useHistory } from 'react-router-dom';
 import IconButton from "@material-ui/core/IconButton";
 import Visibility from "@material-ui/icons/Visibility";
 import VisibilityOff from "@material-ui/icons/VisibilityOff";
-import GoogleLogin from 'react-google-login';
 import axios from 'axios';
 import './HotelAdminLogin.css';
 
 function Login() {
-    const CLIENT_ID = process.env.REACT_APP_Google_ClientID;
+    // const CLIENT_ID = process.env.REACT_APP_Google_ClientID;
 
     const [showPassword, setShowPassword] = useState()
     const [email, setEmail] = useState("");
@@ -32,11 +31,14 @@ function Login() {
         try {
             //getting data from backend
             const {data} = await axios.post("http://localhost:8070/hotelAdmin/signin", {email, password}, config);
-
+            console.log(email)
+            
+            //setting the admin authorization token
+            localStorage.setItem("adminAuthToken", `Admin ${data.token}`)
             //setting user
             localStorage.setItem("user", JSON.stringify(data.result))
             
-            history.push('/')
+            history.push('/hotel/rooms')
         } catch (error) {
             if(error.response.status === 404){
                 alert("Invalid Email")
@@ -50,21 +52,21 @@ function Login() {
         }
     }
 
-    const googleSuccess = async (res) => {
-        const result = res?.profileObj;
-        const token = res?.tokenId;
+    // const googleSuccess = async (res) => {
+    //     const result = res?.profileObj;
+    //     const token = res?.tokenId;
 
-        //setting the customer authorization token
-        localStorage.setItem("customerAuthToken", `Customer ${token}`)
-        //setting user
-        localStorage.setItem("user", JSON.stringify(result))
+    //     //setting the customer authorization token
+    //     localStorage.setItem("customerAuthToken", `Customer ${token}`)
+    //     //setting user
+    //     localStorage.setItem("user", JSON.stringify(result))
 
-        history.push('/')
-    }
+    //     history.push('/')
+    // }
 
-    const googleFailure = (error) => {
-        alert("Something went wrong");
-    }
+    // const googleFailure = (error) => {
+    //     alert("Something went wrong");
+    // }
  
 
     return (
@@ -96,22 +98,16 @@ function Login() {
                         </IconButton>
                     </span>
 
-                    <Link className="forgot" to="/customer/forgotpassword">Forgot password?</Link> 
+                     
                     <input className="form-submit-btn" type="submit" value="Sign In" />
 
-                    <p className="text-muted">or</p>
+                   
 
-                    <GoogleLogin
-                        clientId={CLIENT_ID}
-                        onSuccess={googleSuccess}
-                        onFailure={googleFailure}
-                        cookiePolicy={'single_host_origin'}
-                        theme="dark"
-                    />
+                   
                     <br></br><br></br><br></br>
                     <div className="text-muted">
-                        <p>Don't have an account? <Link to="/customer/signup">Sign Up</Link></p>
-                        <p>Are you a Customer? <Link to="/customer/signin"> Click here</Link></p>
+                        <p>Don't have an account? <Link to="/hotelAdmin/signup">Sign Up</Link></p>
+                        <p>Are you a Customer? <Link to="/"> Click here</Link></p>
                     </div>
                 </form>
             </div>
