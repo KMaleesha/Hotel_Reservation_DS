@@ -40,7 +40,7 @@ function Rooms() {
   }, [location,isAdmin])
 
   function view(id){
-    history.push(`/hotel/room/${id}`)
+    history.push(`/hotel/singleRoom/${id}`)
   }
 
   function addReservationInfo(){
