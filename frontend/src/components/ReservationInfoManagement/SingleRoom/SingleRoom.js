@@ -83,7 +83,7 @@ function RoomDetails(props) {
         history.push(`/hotel/room/${id}`)
     }
     function update(uid){
-        history.push(`/hotel/room/update/${uid}`)
+        history.push(`/admin/room/update/${uid}`)
     }
 
     function Pay(){

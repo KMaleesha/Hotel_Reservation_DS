@@ -44,7 +44,7 @@ function Rooms() {
   }
 
   function addReservationInfo(){
-    history.push(`/hotel/addReservationInfo`)
+    history.push(`/admin/addReservationInfo`)
   }
 
   return (
@@ -89,11 +89,11 @@ function Rooms() {
             Add Room <AddIcon/>
             </Button>  
         }
-        {isAdmin && 
+        {/* {isAdmin && 
             <Button  className="mx-2 roomBtn" style={{backgroundColor:green[400],color:'white'}} onClick={""} >
             Room Report<GetAppIcon />
             </Button>  
-        }
+        } */}
         {rooms.map((Room, key)=>(
               <div key={key}>
                 <div className='roomCard'>

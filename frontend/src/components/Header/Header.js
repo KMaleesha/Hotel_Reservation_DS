@@ -69,7 +69,7 @@ function Header() {
     }, [user._id,location])
 
     function profile() {
-        history.push(`${URL}/profile/`)
+        history.push(`/hotel/rooms`)
     }
 
     function cart() {
