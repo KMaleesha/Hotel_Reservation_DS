@@ -1,84 +1,43 @@
 const Payment = require("../models/payment");
 
-//Add a payment
+//Add a Payment
 exports.addPayment = async(req,res) => {
-    const{ customerID,roomID,amount,email,mobile,date } = req.body; 
-  
-    
-    try{
-        //creating a new payment
-        const payment = await Payment.create({customerID,roomID, amount, email,mobile,date});
+    const {customerID,roomID,roomNum,amount,email,mobile,date} = req.body;
+   
 
-        
-        res.status(200).json ({success:true,message:"payment added",payment})
-     }catch(error){
-         res.status(500).json({message: "unable to add the payment",error:error.message});
-     }
-}
-
-//update payment details
-exports.updatePayment = async(req,res)=>{
-    let paymentID=req.params.id;
-    const{ amount, creditCardNumber} =req.body;
-    const updatePayment={ amount, creditCardNumber, date}
-
-    try{
-        //find review by patient ID
-        await Payment.findByIdAndUpdate(paymentID,updatePayment);
-
-        res.status(200).json({message: "payment updated"})
-    }catch(error){
-        res.status(500).json({message:"Error with updating the payment details",error:error.message});
-
-    }
- }
-
-//delete payment details
-exports.deletePayment= async(req,res)=>{
-
-    let paymentID =req.params.id;
-
-    try{
-        await Payment.findByIdAndDelete(paymentID);
-
-        res.status(200).json({message:"delete successful"});
-    }catch(error){
-        res.status(500).json({message:"delete unsuccessful",error:error.message});
-    }
-}
-//fetching all payments
-exports.fetchAll = async(req,res)=>{
-    Payment.find().populate({path:'customerID',select:['firstname','lastname']}).then((payments)=>{
-
-        res.status(200).json(payments)
-    }).catch((error)=>{
-        res.status(500).json({message:"fetching failed",error:error.message});
-    })
-
-}
-//view payments
-exports.viewPayments = async(req,res) => {
-    //get patient id
-    let patientID = req.params.id;
     try {
-        //view payments
-        const payments = await Payment.find({customerID}).populate({path:'patientID',select:['firstname','lastname']});
+        // //checking product already exists
+        // const checkItem = await Submission.findOne({progressID,studentID})
+        // if(checkItem)
+        //     return res.status(409).json({message: "Submission already submitted"})
+        //creating a new add submission
+        await Payment.create({customerID,roomID,roomNum,amount,email,mobile,date});
         //success message
-        res.status(200).json({success: true,result:payments})
-    }catch(error){
+        res.status(200).json({success: true,message:"Payment added"})
+
+    } catch (error) {
         //error message
-        res.status(500).json({message: "Error with fetching payments", error: error.message})
+        res.status(500).json({message: "can't added", error: error.message})
     }
 }
 
-exports.fetchOne = async(req,res)=>{
-    let paymentID =req.params.id;
 
-    await Payment.findById(paymentID).populate({path:'customerID',select:['firstname','lastname']})
-    .then((payment)=>{
-        res.status(200).json(payment)
-
-    }).catch((error)=>{
-        res.status(500).json({message:"fetching failed",error:error.message});
-    })
-}
+// exports.addPayment = async (req, res) => {
+ 
+//     //constant variables for the attributes
+//     const {name, description, type, date,imgUrl} = req.body;
+   
+//     //object
+//     const newPayment= new Payment({
+//       //initializing properties
+//       customerID,roomID,roomNum,amount,email,mobile,date
+//     })
+   
+//     //saving the object to the db 
+//     newPayment.save().then(() => {
+//       res.status(200).json({ status: "New Payment Added" });
+//     }).catch((error) => {
+//       res.status(500).json({message:"Fail to Payment Item",error:error.message})
+//     })
+//   }
+  

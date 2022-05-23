@@ -45,7 +45,7 @@ function RoomDetails(props) {
         
         
         async function getRoomDetails() {
-            axios.get(`http://localhost:8280/reservation/${props.match.params.id}`).then((res) => {
+            axios.get(`http://localhost:8070/ReservationInfo/${props.match.params.id}`).then((res) => {
                 setId(res.data.reservationInfo._id) 
                 setroomNum(res.data.reservationInfo.roomNum)
                 setDescription(res.data.reservationInfo.description)
@@ -87,7 +87,7 @@ function RoomDetails(props) {
     }
 
     function Pay(){
-        history.push(`/customer/payment/${roomNum}/${date}/${price}`)
+        history.push(`/customer/payment/${id}/${roomNum}/${price}/${date}`)
     }
 
 
@@ -142,6 +142,7 @@ function RoomDetails(props) {
                                     :
                                     <div>
                                         <button className="mx-2 roomBtn" style={{backgroundColor:red[500]}} 
+                                        // onClick={()=>AddPay(id, user._id, price, date, type)}>
                                         onClick={()=>Pay()}>
                                             Pay <ShoppingCartIcon/>
                                         </button> 

@@ -1,15 +1,15 @@
 import axios from "axios";
 import { useHistory } from "react-router-dom";
 
-export const AddPay = (roomid,id,roomNo,Price,Date,Type) => {
+export const AddPay = (roomid,id,Price,Date,Type) => {
 
-    const history = useHistory()
+    
     const roomID = roomid
     const customerID = id
-    const roomNum = roomNo
     const date = Date
     const type = Type
     const price = Price
+    const history = useHistory()
     // let total = quantity*price;
 
     const booking = {roomID, customerID, date, type, price}
@@ -19,13 +19,14 @@ export const AddPay = (roomid,id,roomNo,Price,Date,Type) => {
             Authorization: `${localStorage.getItem("customerAuthToken")}`
         }
     };
-    
+    history.push('/customer/payment') 
     axios.post("http://localhost:8090/booking/add", booking , config).then((res)=>{
         alert("Booking Added")
-        // history.push(`/customer/payment/${roomNum}/${price}/${date}`)
+      
     }).catch((error)=>{         
         if(error.response.status === 409){
             alert("Booking already exists")
+
          }else if(error.response.status === 401){
             alert("Please login")
         }
@@ -34,5 +35,5 @@ export const AddPay = (roomid,id,roomNo,Price,Date,Type) => {
             console.log(error)     
         }        
     })
-     history.push(`/customer/payment/${roomNum}/${price}/${date}`)
+    //  history.push(`/customer/payment/${roomNum}/${price}/${date}`)
 }
