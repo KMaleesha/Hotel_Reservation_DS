@@ -14,12 +14,17 @@ const PaymentSchema=new Schema({
        ref:'reservationInfo',
        required:true
    },
+
+   roomNum:{
+       type:String,
+       required:true
+   },
     amount:{
         type:Number,
-        required: true
+        required: false
     },
     email:{
-        type:Number,
+        type:String,
         required: true
 
     },
@@ -30,7 +35,7 @@ const PaymentSchema=new Schema({
     
     date:{
         type:String,
-        required:true, 
+        required:false, 
     }
 
 })
