@@ -40,8 +40,8 @@ function App() {
             <Route path= '/hotel/singleRoom/:id' exact component= {SingleRoom} />
             <Route path="/customer/signup" exact component={CustomerSignUp} />
             <CustomerPrivateRoute path="/booking/:id/:type" exact component={Booking} />            
-            <CustomerPrivateRoute path="/customer/payment/:roomNum/:date/:amount" exact component= {payment}/>
-
+            <CustomerPrivateRoute path="/customer/payment/:id/:roomNum/:date/:amount" exact component= {payment}/>
+            {/* <CustomerPrivateRoute path="/customer/payment" exact component= {payment}/> */}
             <Footer/>
         </div>
       </Router>

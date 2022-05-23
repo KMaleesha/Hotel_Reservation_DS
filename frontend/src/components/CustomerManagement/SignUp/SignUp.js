@@ -91,7 +91,7 @@ function SignUp() {
             const newCustomer = {firstname,lastname,email,phone,dob,nic,address,gender,password,imgUrl}
 
             try {
-                await axios.post("http://localhost:8090/customer/signup", newCustomer , config)
+                await axios.post("http://localhost:8280/user/signup", newCustomer , config)
                     alert("Registration Successful")
                     history.push('/customer/signin')
             } catch (error) {
