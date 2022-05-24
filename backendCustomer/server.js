@@ -48,6 +48,8 @@ connection.once("open", function() {
 
 //when http://localhost:8090/sms ran it will execute smsRouter.js file
  app.use("/sms",smsRouter);
+ //when http://localhost:8090/sms ran it will execute smsRouter.js file
+ app.use("/email",smsRouter);
 //when http://localhost:8090/Payment ran it will execute paymentRouter.js file
  app.use("/payment",paymentRouter);
 

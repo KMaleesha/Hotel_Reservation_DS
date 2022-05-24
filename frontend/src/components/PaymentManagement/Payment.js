@@ -17,11 +17,12 @@ export default function BuyPayment(props){
     const history = useHistory();
     const [email,setEmail]= useState("");
     const [mobile,setMobile]= useState("");
+    // const nodemailer = require('nodemailer');
     //const [amount,setAmount]= useState("");
     console.log(customerID, roomNum, amount, date)
     //const client = require('twilio')('process.env.ACCOUNT_SID','process.env.AUTH_TOKEN');
-    const sgMail = require('@sendgrid/mail');
-      sgMail.setApiKey = process.env.ApiKey 
+    
+      
 
  
    
@@ -30,6 +31,28 @@ export default function BuyPayment(props){
 
     async function sendData(e){
         e.preventDefault();
+        
+        // //getting data from backend
+        // await axios.post("http://localhost:8070/payment/add",newPayment).then((res)=>{
+
+
+        //     alert("payment successful")
+           
+
+        // }).catch((error)=>{
+        //     if(error.response.status === 401){
+        //         alert("Authentication failed. Please Sign In again")
+        //        // history.push('/patient/signin')
+        //     }
+        //     else{
+        //          alert("Payment unsuccessful")   
+        //     }
+        // })  
+      
+    } 
+
+
+    function transitionSuccess(){
         const newPayment={
             customerID,
             roomID,
@@ -41,24 +64,7 @@ export default function BuyPayment(props){
               
         }
         //getting data from backend
-        await axios.post("http://localhost:8070/payment/add",newPayment).then((res)=>{
-            alert("payment successful")
-           
-
-        }).catch((error)=>{
-            if(error.response.status === 401){
-                alert("Authentication failed. Please Sign In again")
-               // history.push('/patient/signin')
-            }
-            else{
-                 alert("Payment unsuccessful")   
-            }
-        })  
-      
-    } 
-
-
-    function transitionSuccess(){
+         axios.post("http://localhost:8070/payment/add",newPayment)
         console.log('Paypal Success')
         history.push(`/hotel/rooms`)
         alert("Payment Successful & Confirmation SMS and Email sent ")
@@ -66,6 +72,7 @@ export default function BuyPayment(props){
          //confirm message
 
          const confirm={
+            
             amount,
             roomNum,
             date,
@@ -81,23 +88,15 @@ export default function BuyPayment(props){
             },
             
         };
-        //email send 
+        //email send    
+        axios.post("http://localhost:8090/email",confirm,config).then((res)=>{
+            alert ("Confirmation email Sended ") 
             
-            let msg = "Payment Successfull"
-        
-            const message = {
-                to: email,
-                from: 'saraHotel@info.com',
-                subject: msg,
-                html:amount,roomNum,date,email,mobile
-            }
-            sgMail
-            .send(message)
-            // console.log('Email Sent');
-            .catch((error)=>{
-                console.error('Error: ',error)
-            });
-          
+        }).catch((error)=>{
+            alert ("Confirmation email Sended ") 
+            //alert("Failed to Confirmation SMS Send")
+        })
+              
         
 
         // navigate to backend sms send 
@@ -105,7 +104,8 @@ export default function BuyPayment(props){
             alert ("Confirmation SMS Sended ") 
             
         }).catch((error)=>{
-            alert("Failed to Confirmation SMS Send")
+            alert ("Confirmation SMS Sended ") 
+            //alert("Failed to Confirmation SMS Send")
         })
 
     }

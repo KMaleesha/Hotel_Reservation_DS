@@ -12,6 +12,8 @@ exports.addPayment = async(req,res) => {
         //     return res.status(409).json({message: "Submission already submitted"})
         //creating a new add submission
         await Payment.create({customerID,roomID,roomNum,amount,email,mobile,date});
+
+        
         //success message
         res.status(200).json({success: true,message:"Payment added"})
 
