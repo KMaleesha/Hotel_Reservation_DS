@@ -24,6 +24,7 @@ const CustomerRouter = require("./routes/customerrouter");
 // const PanelmemberRouter = require("./routes/panelmemberrouter");
 const BookingRouter = require("./routes/bookingrouter");
 const reservationInfoRouter = require('./routes/reservationInforouter.js');
+const taxiRouter = require('./routes/taxirouter.js');
 
 
 //getting the database url
@@ -66,6 +67,7 @@ app.use("/customer",CustomerRouter);
 //when http://localhost:8090/booking ran it will execute bookingrouter.js file
 app.use("/booking",BookingRouter);
 app.use('/ReservationInfo', reservationInfoRouter);
+app.use("/taxi", taxiRouter);
 
 
 //defining a port to run the application
