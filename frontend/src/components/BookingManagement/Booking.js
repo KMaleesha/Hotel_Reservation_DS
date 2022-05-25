@@ -14,6 +14,8 @@ import Checkbox from '@material-ui/core/Checkbox';
 import CheckCircleIcon from '@material-ui/icons/CheckCircle';
 import CheckRound from '@material-ui/icons/TripOrigin';
 import OutlinedInput from "@material-ui/core/OutlinedInput";
+
+
 import Aos from "aos";
 import "aos/dist/aos.css"
 
@@ -22,14 +24,12 @@ function Bookings(props) {
     const [rooms, setRooms] = useState([])
     const [isType, setIsType] = useState(true)
     const history = useHistory()
-    const [address, setAddress] = useState([])
-    const [destination, setDestination] = useState([])
-    const [date, setDate] = useState([])
-    const [passengerNo, setPassengerNo] = useState([])
-    // const [isCheckAll, setIsCheckAll] = useState(false);
-    // const [isCheck, setIsCheck] = useState([]);
+    const [address, setAddress] = useState("");
+    const [destination, setDestination] = useState("");
+    const [date, setDate] = useState("");
+    const [passengerNo, setPassengerNo] = useState("");
     const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')));
-    // let finalTotal = 0;
+
     
     const config = {
         headers: {
@@ -59,88 +59,6 @@ function Bookings(props) {
         getData();        
     }, [props])
 
-    
-    //select all checkbox
-    // const handleSelectAll = event => {
-    //     setIsCheckAll(!isCheckAll);
-    //     setIsCheck(items.map(item => item._id));
-    //     if (isCheckAll) {
-    //         setIsCheck([]);
-    //     }
-    // };
-
-    //one checkbox
-    // function handleClick(event) {
-    //     const id = event.currentTarget.id;
-    //     const checked = event.currentTarget.checked;
-    //     setIsCheck([...isCheck, id]);
-
-    //     if (!checked) {
-    //         setIsCheck(isCheck.filter(item => item !== id));
-    //     }
-    // };
-
-    // isCheck.map(roomID => (                                              
-    //     getTotal(roomID)
-
-    // ))
-
-    // localStorage.setRooms("selectedItem",JSON.stringify(isCheck))
-
-    // async function getTotal(id) {
-    //     let iTotal
-    //     await axios.get(`http://localhost:8090/booking/${id}`,config).then((res) => {
-    //         iTotal = res.data.result.total 
-    //         finalTotal = finalTotal + iTotal            
-            
-            
-    //     }).catch((error) => {
-    //       alert("Failed to fetch cal")
-    //     })
-    //     localStorage.setItem("total",finalTotal)
-    // }
-
-    //Update Room
-    // async function updateQuantity(id,quantity,price) {
-        
-    //     try {
-    //         await axios.put(`http://localhost:8070/cart/update/${id}`,{quantity,price},config)
-    //         history.push(`/cart/${props.match.params.id}/${props.match.params.type}`)
-    //     } catch (error) {            
-    //         if(error.response.status === 401){
-    //             alert("Authentication failed. Please Sign In again")
-    //             history.push('/patient/signin')
-    //             } 
-    //             else{
-    //                 alert("Update failed")
-    //             }
-    //     }  
-                     
-    // }
-
-    //Increment Quantity
-    // function increment(id,Price) {
-    //     items.forEach(Room => {
-    //         if(Room._id === id){
-    //             if(Room.quantity<10){
-    //                 Room.quantity++
-    //                 updateQuantity(Room._id,Room.quantity,Price)
-    //             }
-    //         }
-    //     })       
-    // }
-
-    //Decrease Room
-    // function decrease(id,Price) {
-    //     items.forEach(Room => {
-    //         if(Room._id === id){
-    //             if(Room.quantity>1){
-    //                 Room.quantity--
-    //                 updateQuantity(Room._id,Room.quantity,Price)
-    //             }
-    //         }
-    //     })       
-    // }
 
     //delete Room
     async function deleteItem(id){        
@@ -152,45 +70,26 @@ function Bookings(props) {
         }) 
     } 
 
-    // search
-    // function filterContent(data, searchTerm){
-    //     const result = data.filter((items) => 
-    //         items.roomNum.name.toLowerCase().includes(searchTerm)
-    //     )
-    //     setItems(result)
-    //   }
-    
-    //   function handleSearch(event){
-    //     const searchTerm = event.currentTarget.value
-    //     axios.get(`http://localhost:8070/cart/${props.match.params.id}&${props.match.params.type}`).then((res) => {
-    //       filterContent(res.data.result, searchTerm.toLowerCase())
-    //     }).catch((error) => {
-    //       alert("Failed to fetch item")
-    //     })
-    //   }
-
-      function order() {
-          history.push(`/customer/taxi/`)
-      }
-
     async function orderTaxi(event) {
-    
-        const newTaxiOrder = {address, destination, date, passengerNo}
+        event.preventDefault();
+        
+        const customerID = user._id;
+        const newTaxiOrder = {customerID,address, destination, date, passengerNo}
 
         try {
-            await axios.post('http://localhost:8070/taxi/add', newTaxiOrder , config)
+            await axios.post('http://localhost:8090/taxi/add', newTaxiOrder , config)
             alert("Taxi Order Added Successfully")  
             event.target.reset(); 
-        }catch (error) {         
-            alert("Taxi Order can't be Added");
+        }catch (error) { 
+            if(error.response.status === 409){
+                alert("Taxi already booked on this date")
+            }else {       
+                alert("Taxi Order can't be placed");
+            }
         }      
     }
-    //   function generateReport() {
-    //     history.push(`/cart/report/${props.match.params.id}/${props.match.params.type}`)
-    // }
 
-      
-     
+          
     return (
         <div>
             <div className="container">
@@ -205,39 +104,13 @@ function Bookings(props) {
                         </div>
                     </div>                    
                     <div className="col-3">
+                    </div>
+                        <br/>
+                        <br/>
+                        <br/>
+                        <br/>
+    
                 </div>
-                <br/>
-                <br/>
-                <br/>
-                <br/>
-                    {/* <div className="col-5">
-                        <div className="px-3 search" align="center">
-                            <input 
-                                type="text" 
-                                name="search" 
-                                id="search"
-                                placeholder="Search" 
-                                onChange={handleSearch} 
-                                required 
-                            />
-                        </div>
-                    </div>                     */}
-                </div>
-                {/* <div className="row">
-                    <div className="col-12 exp"> <br/> */}
-                    {/* select all check box*/}
-                        {/* <FormControlLabel
-                            control={<Checkbox icon={<CheckRound/>}
-                            checkedIcon={<CheckCircleIcon style={{color:orange[600]}}/>}
-                            id="selectAll" 
-                            name="checkedH" />}
-                            onChange={handleSelectAll}
-                            checked={isCheckAll}
-                            label="Select All"
-                        />            
-                        <br/><br/>
-                    </div>                     */}
-                {/* </div> */}
                 <div className="row">
                     <div className="col-xl-8"data-aos="slide-up">
                         {/* map */}
@@ -245,19 +118,6 @@ function Bookings(props) {
                             <div key={key} >                                
                                 <div className="cart-box mb-3 shadow">                        
                                     <div className="row align-items-center ">
-                                        {/* <div className="col-sm-1"> */}
-                                            {/* Check box for item */}
-                                            {/* <FormControlLabel                                                    
-                                                checked={isCheck.includes(Room._id)}
-                                                control={
-                                                    <Checkbox icon={<CheckRound />} 
-                                                        checkedIcon={<CheckCircleIcon style={{color:orange[600]}}/>}  name="checkedH" 
-                                                        id = {Room._id}
-                                                        onChange={handleClick}
-                                                    />
-                                                }
-                                            />
-                                        </div> */}
                                         {/* Room Image */}
                                         <div className="col-sm-2">
                                             <div ><img className="room-Img" src={Room.roomID.imgUrl} alt="room"></img></div>
@@ -266,28 +126,11 @@ function Bookings(props) {
                                         <div className="col-sm-4">                                                
                                             <h4>{Room.roomID.roomNum}</h4>
                                             <p className="textShort mb-1">{Room.roomID.description}</p>    
-                                            {/* <Link to={`/pharmacy/item/${Room.roomNum._id}`}>Show more</Link> */}
                                         </div>
                                         <div className="col-sm-2">
                                             <h6>{Room.type}</h6>
                                             <h6>{Room.date}</h6>
                                         </div>
-                                        {/* <div className="col-sm-2">
-                                            <div> */}
-                                                {/* Quantity decrease button */}
-                                                {/* <IconButton onClick={()=>decrease(Room._id,Room.roomNum.price)}>
-                                                    <SubIcon style={{fontSize:"small"}}></SubIcon>
-                                                </IconButton> */}
-
-                                                {/* Quantity */}
-                                                {/* <Input type="text" name="quantity" className="quantity" disableUnderline margin="dense" readOnly value={(Room.quantity)}/> */}
-                                                
-                                                {/* Quantity decrease button */}
-                                                {/* <IconButton onClick={()=>increment(Room._id,Room.roomNum.price)}>
-                                                    <AddIcon style={{fontSize:"small"}}></AddIcon>
-                                                </IconButton> */}
-                                            {/* </div>
-                                        </div> */}
                                         {/* Price */}
                                         <div className="col-sm-2">
                                             LKR&nbsp;{Room.roomID.price}.00
@@ -306,24 +149,25 @@ function Bookings(props) {
                     {/* Order Taxi Card */}
                     <div className="col-xl-4" >
                         <div className="cardSummary shadow">
+
                             <h5>Order Taxi</h5>
                                 <br/>
+                                <form onSubmitCapture={orderTaxi}>
                                 <div className="row">
-                                    {/* Address */}
                                     <div className="col-xl-12 mb-3">
                                         <h6>PickUp:</h6>
                                         <OutlinedInput  
                                             type="text" id="adress" placeholder="Address" 
                                             required fullWidth
                                             onChange={(e)=>setAddress(e.target.value)}
-                                            value={user.address}
+                                            inputProps={{style: {padding: 12}}}
                                         />                                   
                                     </div> 
                                     
                                     <div className="col-xl-12 mb-3">
                                     <h6>Destination:</h6>
                                         <OutlinedInput 
-                                            type="text" id="address" placeholder="Address" required fullWidth
+                                            type="text" id="destination" placeholder="Destination" required fullWidth
                                             onChange={(e)=>setDestination(e.target.value)}
                                             inputProps={{style: {padding: 12}}}
                                         />
@@ -339,7 +183,7 @@ function Bookings(props) {
                                     
                                     <div className="col-xl-12 mb-3">
                                         <OutlinedInput 
-                                            type="text" id="passengerNo" placeholder="No. of Passengers" 
+                                            type="Number" id="passengerNo" placeholder="No. of Passengers" 
                                             onChange={(e)=>setPassengerNo(e.target.value)}
                                             inputProps={{style: {padding: 12}}}
                                         />
@@ -347,20 +191,13 @@ function Bookings(props) {
                                     <hr/>                                                                  
                                     <hr/>                                                                  
                                     {/* Checkout Button */}
-                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" onClick={orderTaxi}>
+                                    <Button disableElevation style={{backgroundColor:red[500]}} variant="contained" color="secondary" 
+                                    type="submit" value="AddtaxiOrder">
                                     <b>Order</b>
                                     </Button>
-                                </div>                                
+                                </div>
+                                </form>                                
                         </div>
-                        {/* <div> */}
-                            {/* Report Generate Button  */}
-                            {/* <center>
-                            <Button variant="contained" className="mb-4" disableElevation size="large" onClick={generateReport}
-                                style={{ backgroundColor: green[400], color: 'white' }} endIcon={<CloudDownloadIcon/>}>
-                                Generate Report
-                            </Button>
-                            </center> */}
-                        {/* </div> */}
                     </div>
                 </div>        
             </div>               

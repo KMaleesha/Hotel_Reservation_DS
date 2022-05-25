@@ -9,15 +9,15 @@ const client = require("twilio")(accountSid, authToken);
 //send sms
 router.post('/', (req,res) => {
     const { paymentID,amount,roomID,date,mobile,email} = req.body; 
-    const msg = "Payment Successful "
+   
     client.messages
     .create({
         //get the details
-        body: paymentID,amount,roomID,date,mobile,email,msg,
+        body: "Payment Successful",
         //sms send number
-        from: process.env.FROM.NUMBER,
+        from: '(470) 536-4390 ',
 
-        to: process.env.TO_NUMBER
+        to: '0770208268'
     })
     .then(message =>{
         console.log(message.status);

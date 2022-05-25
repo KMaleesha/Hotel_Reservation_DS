@@ -31,7 +31,7 @@ function Login() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8280/customer/login", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8090/customer/signin", {email, password}, config);
 
             //setting the customer authorization token
             localStorage.setItem("customerAuthToken", `Customer ${data.token}`)

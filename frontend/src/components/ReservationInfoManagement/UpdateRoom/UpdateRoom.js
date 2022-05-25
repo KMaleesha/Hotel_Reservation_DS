@@ -85,7 +85,7 @@ function UpdateRoom(props) {
         };
 
         try{
-            await axios.put(`http://localhost:8280/reservation/${props.match.params.id}`,updateroom, config);
+            await axios.put(`http://localhost:8070/ReservationInfo/update/${props.match.params.id}`,updateroom, config);
             alert("Room Info Updated Successfully")
             history.push('/hotel/rooms')
         }catch (error){
