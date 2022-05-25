@@ -64,7 +64,7 @@ export default function BuyPayment(props){
               
         }
         //getting data from backend
-         axios.post("http://localhost:8070/payment/add",newPayment)
+         axios.post("http://localhost:8280/payment/add",newPayment)
         console.log('Paypal Success')
         history.push(`/hotel/rooms`)
         alert("Payment Successful & Confirmation SMS and Email sent ")

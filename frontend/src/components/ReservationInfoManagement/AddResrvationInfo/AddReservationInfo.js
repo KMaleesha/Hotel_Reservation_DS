@@ -60,7 +60,7 @@ function AddReservationInfo() {
         const newReservationInfo = {roomNum, description, type, price, imgUrl}
 
         try {
-            await axios.post('http://localhost:8070/ReservationInfo/add', newReservationInfo , config)
+            await axios.post('http://localhost:8280/room/add', newReservationInfo , config)
             alert("Reservation Information Added Successfully")  
             event.target.reset(); 
         }catch (error) {         

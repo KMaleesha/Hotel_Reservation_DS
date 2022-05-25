@@ -17,7 +17,7 @@ export const AddBooking = (roomid,id,Price,Date,Type) => {
         }
     };
     
-    axios.post("http://localhost:8090/booking/add", booking , config).then((res)=>{
+    axios.post("http://localhost:8280/booking/add", booking , config).then((res)=>{
         alert("Booking Added")
     }).catch((error)=>{         
         if(error.response.status === 409){
