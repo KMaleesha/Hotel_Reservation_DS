@@ -50,7 +50,7 @@ function Bookings(props) {
         
         //Fetch Room 
         async function getData() {
-            await axios.get(`http://localhost:8090/booking/${props.match.params.id}&${props.match.params.type}`,config).then((res) => {
+            await axios.get(`http://localhost:8280/booking/${props.match.params.id}&${props.match.params.type}`,config).then((res) => {
                 setRooms(res.data.result) 
             }).catch((error) => {
               alert("Failed to fetch Bookings")
@@ -62,7 +62,7 @@ function Bookings(props) {
 
     //delete Room
     async function deleteItem(id){        
-        await axios.delete(`http://localhost:8090/booking/delete/${id}`, config).then(() => {
+        await axios.delete(`http://localhost:8280/booking/${id}`, config).then(() => {
             alert("Booking deleted successfully")
             setRooms(rooms.filter(element => element._id !== id))
         }).catch((error) => {
@@ -77,7 +77,7 @@ function Bookings(props) {
         const newTaxiOrder = {customerID,address, destination, date, passengerNo}
 
         try {
-            await axios.post('http://localhost:8090/taxi/add', newTaxiOrder , config)
+            await axios.post('http://localhost:8280/taxi/add', newTaxiOrder , config)
             alert("Taxi Order Added Successfully")  
             event.target.reset(); 
         }catch (error) { 

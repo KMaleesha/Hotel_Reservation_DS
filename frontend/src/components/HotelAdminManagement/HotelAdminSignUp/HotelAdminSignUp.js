@@ -91,7 +91,7 @@ function HotelAdminSignUp() {
             const newHotelAdmin = {firstname,lastname,email,phone,dob,nic,address,gender,password,imgUrl}
 
             try {
-                await axios.post("http://localhost:8070/hotelAdmin/signup", newHotelAdmin , config)
+                await axios.post("http://localhost:8280/hoteladmin/signup", newHotelAdmin , config)
                     alert("Registration Successful")
                     history.push('/hotelAdmin/signin')
             } catch (error) {
