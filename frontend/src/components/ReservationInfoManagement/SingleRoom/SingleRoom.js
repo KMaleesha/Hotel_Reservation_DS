@@ -45,7 +45,7 @@ function RoomDetails(props) {
         
         
         async function getRoomDetails() {
-            axios.get(`http://localhost:8070/ReservationInfo/${props.match.params.id}`).then((res) => {
+            axios.get(`http://localhost:8280/room/${props.match.params.id}`).then((res) => {
                 setId(res.data.reservationInfo._id) 
                 setroomNum(res.data.reservationInfo.roomNum)
                 setDescription(res.data.reservationInfo.description)
@@ -70,7 +70,7 @@ function RoomDetails(props) {
     }, [props])
     
     async function deleteRoom(id){        
-        await axios.delete(`http://localhost:8070/reservationInfo/delete/${id}`,config).then(() => {
+        await axios.delete(`http://localhost:8280/room/delete/${id}`,config).then(() => {
             alert("Room deleted successfully")
             history.push('/hotel/rooms')
         }).catch((error) => {

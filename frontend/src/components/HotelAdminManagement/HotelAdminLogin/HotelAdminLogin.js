@@ -30,7 +30,7 @@ function Login() {
         
         try {
             //getting data from backend
-            const {data} = await axios.post("http://localhost:8070/hotelAdmin/signin", {email, password}, config);
+            const {data} = await axios.post("http://localhost:8280/hoteladmin/login", {email, password}, config);
             console.log(email)
             
             //setting the admin authorization token

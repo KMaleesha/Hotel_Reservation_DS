@@ -20,7 +20,7 @@ export const AddPay = (roomid,id,Price,Date,Type) => {
         }
     };
     history.push('/customer/payment') 
-    axios.post("http://localhost:8090/booking/add", booking , config).then((res)=>{
+    axios.post("http://localhost:8280/booking/add", booking , config).then((res)=>{
         alert("Booking Added")
       
     }).catch((error)=>{         

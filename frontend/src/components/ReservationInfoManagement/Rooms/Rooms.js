@@ -25,7 +25,7 @@ function Rooms() {
       setIsAdmin(true)
     }
     async function getAllRooms() {
-      axios.get(`http://localhost:8070/ReservationInfo`).then((res) => {
+      axios.get(`http://localhost:8280/room/rooms`).then((res) => {
         setRooms(res.data)  
       }).catch((error) => {
         alert("Failed to fetch Rooms")

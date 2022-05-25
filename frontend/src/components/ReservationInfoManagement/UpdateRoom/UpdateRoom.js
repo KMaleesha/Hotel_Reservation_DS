@@ -25,7 +25,7 @@ function UpdateRoom(props) {
 
     useEffect(()=>{
       async function fetchroom(){
-        await axios.get(`http://localhost:8070/reservationInfo/${props.match.params.id}`).then((res)=>{
+        await axios.get(`http://localhost:8280/room/${props.match.params.id}`).then((res)=>{
             setroomNum(res.data.reservationInfo.roomNum)
             setDescription(res.data.reservationInfo.description)
             setPrice(res.data.reservationInfo.price)
@@ -85,7 +85,7 @@ function UpdateRoom(props) {
         };
 
         try{
-            await axios.put(`http://localhost:8070/ReservationInfo/update/${props.match.params.id}`,updateroom, config);
+            await axios.put(`http://localhost:8280/room/${props.match.params.id}`,updateroom, config);
             alert("Room Info Updated Successfully")
             history.push('/hotel/rooms')
         }catch (error){
